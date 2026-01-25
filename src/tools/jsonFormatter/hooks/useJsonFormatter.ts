@@ -79,10 +79,7 @@ export const useJsonFormatter = () => {
       setErrorColumn(null)
       const result = processor()
       setOutput(result)
-      // Scroll to output after processing
-      setTimeout(() => {
-        outputRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
-      }, 100)
+      // Removed scroll behavior to prevent page scrolling on format/minify
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : "Invalid JSON. Please check your input."
       setError(errorMessage)

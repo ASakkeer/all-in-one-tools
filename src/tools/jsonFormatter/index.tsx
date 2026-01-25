@@ -59,14 +59,18 @@ export const JsonFormatter = () => {
     }
   }
 
-  const handleFormat = () => {
+  const handleFormat = (e?: React.MouseEvent) => {
+    e?.preventDefault()
+    e?.stopPropagation()
     format()
     setLastInputAction("format")
     // Reset output highlights when Format is pressed
     setLastOutputAction(null)
   }
 
-  const handleMinify = () => {
+  const handleMinify = (e?: React.MouseEvent) => {
+    e?.preventDefault()
+    e?.stopPropagation()
     minify()
     setLastInputAction("minify")
     // Reset output highlights when Minify is pressed
@@ -145,6 +149,7 @@ export const JsonFormatter = () => {
                 }`}
                 title="Format JSON"
                 aria-label="Format JSON"
+                onMouseDown={(e) => e.preventDefault()}
               >
                 <Sparkles className="w-4 h-4" />
               </button>
@@ -157,6 +162,7 @@ export const JsonFormatter = () => {
                     : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
                 }`}
                 title="Minify JSON"
+                onMouseDown={(e) => e.preventDefault()}
                 aria-label="Minify JSON"
               >
                 <Minus className="w-4 h-4" />

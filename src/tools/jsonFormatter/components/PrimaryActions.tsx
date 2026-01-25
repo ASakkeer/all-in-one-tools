@@ -22,9 +22,14 @@ export const PrimaryActions = ({
     <div className="flex flex-wrap items-center gap-3">
       {/* Primary Action - Format */}
       <button
-        onClick={onFormat}
+        onClick={(e) => {
+          e.preventDefault()
+          e.stopPropagation()
+          onFormat()
+        }}
         disabled={!hasInput}
         className="px-6 py-2.5 bg-blue-600 text-white rounded-lg font-medium shadow-sm hover:bg-blue-700 hover:shadow-md active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600 disabled:hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-150 text-sm"
+        onMouseDown={(e) => e.preventDefault()}
       >
         Format JSON
       </button>
@@ -32,9 +37,14 @@ export const PrimaryActions = ({
       {/* Secondary Actions */}
       <div className="flex items-center gap-2 pl-3 border-l border-gray-200">
         <button
-          onClick={onMinify}
+          onClick={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            onMinify()
+          }}
           disabled={!hasInput}
           className="px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-100 hover:text-gray-900 active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1 transition-all duration-150 text-sm"
+          onMouseDown={(e) => e.preventDefault()}
         >
           Minify
         </button>
