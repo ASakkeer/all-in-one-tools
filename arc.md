@@ -54,12 +54,45 @@ src/
 - ✅ Routing configured
 - ✅ Tailwind CSS set up
 - ✅ Redux store configured
-- ⏳ UI components (pending)
-- ⏳ Tool implementations (pending)
+- ✅ JSON Formatter tool implemented
+
+### JSON Formatter Tool Structure
+```
+src/tools/jsonFormatter/
+ ├─ index.tsx                    # Main container component
+ ├─ hooks/
+ │   └─ useJsonFormatter.ts      # Core logic hook with auto-error clearing
+ ├─ components/
+ │   ├─ JsonInput.tsx            # Monaco Editor input (editable, line numbers, error highlighting)
+ │   ├─ JsonOutput.tsx           # Monaco Editor output (read-only, syntax highlighting)
+ │   ├─ EditorPanel.tsx          # Editor wrapper with inline error handling
+ │   ├─ TransformActions.tsx     # Transform actions (always visible)
+ │   └─ AdvancedPanel.tsx        # Validation and size info
+ └─ utils/
+     ├─ formatJson.ts            # JSON formatting utility
+     ├─ jsonTransformations.ts  # Transform operations
+     └─ jsonErrorParser.ts       # Error parsing for line/column extraction
+```
+
+### JSON Formatter UX Principles
+1. **Editors never disappear** - Input editor always remains editable
+2. **Errors are inline** - Error messages appear below editor, never replace it
+3. **Primary actions always visible** - Format, Minify, Copy, Clear in horizontal toolbar
+4. **Transform actions visible** - No accordion, all transform options accessible
+5. **Text labels over icons** - Clear button labels for better discoverability
+6. **Auto-error clearing** - Errors automatically clear when JSON becomes valid
+7. **Professional code editor** - Monaco Editor with line numbers, syntax highlighting, and error markers
+
+### JSON Formatter Technical Details
+- **Editor Engine**: Monaco Editor (VS Code editor engine)
+- **Input Editor**: Editable with dynamic line numbers, error highlighting, and auto-scroll to errors
+- **Output Editor**: Read-only with JSON syntax highlighting and line numbers
+- **Error Detection**: Automatic line/column extraction from JSON parse errors
+- **Error Highlighting**: Monaco diagnostics API for visual error markers
+- **Theme**: Light theme (vs) for neutral, professional appearance
 
 ## Next Steps
-1. Implement UI components
-2. Build individual tool components
-3. Add shared components
-4. Implement Redux slices as needed
-5. Add error boundaries and loading states
+1. Add more tools following JSON Formatter UX patterns
+2. Add shared components as needed
+3. Implement Redux slices for cross-tool state if needed
+4. Add error boundaries and loading states
