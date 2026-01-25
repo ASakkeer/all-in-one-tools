@@ -4,10 +4,8 @@ import { useJsonFormatter } from "./hooks/useJsonFormatter"
 import { JsonInput } from "./components/JsonInput"
 import { JsonOutput } from "./components/JsonOutput"
 import { EditorPanel } from "./components/EditorPanel"
-import { TransformActions } from "./components/TransformActions"
-import { AdvancedPanel } from "./components/AdvancedPanel"
 import { useRef, useState } from "react"
-import { Trash2, Clipboard, Copy, Check } from "lucide-react"
+import { Trash2, Copy, Check, Sparkles, Minus, ArrowUp, ArrowDown, Filter } from "lucide-react"
 
 export const JsonFormatter = () => {
   const {
@@ -18,7 +16,6 @@ export const JsonFormatter = () => {
     errorLine,
     errorColumn,
     copied,
-    validationResult,
     sizeInfo,
     outputRef,
     format,
@@ -27,14 +24,20 @@ export const JsonFormatter = () => {
     removeNulls,
     convertToPlainText,
     convertFromPlainText,
-    validate,
+    sortOutputKeys,
+    removeOutputNulls,
+    convertOutputToPlainText,
+    convertOutputFromPlainText,
     downloadJson,
     clear,
     copyToClipboard,
   } = useJsonFormatter()
 
   const fileInputRef = useRef<HTMLInputElement>(null)
-  const [showCopySuccess, setShowCopySuccess] = useState(false)
+  const [showCopyInputSuccess, setShowCopyInputSuccess] = useState(false)
+  const [showCopyOutputSuccess, setShowCopyOutputSuccess] = useState(false)
+  const [lastInputAction, setLastInputAction] = useState<string | null>(null)
+  const [lastOutputAction, setLastOutputAction] = useState<string | null>(null)
 
   const handleUpload = () => {
     fileInputRef.current?.click()
@@ -56,65 +59,66 @@ export const JsonFormatter = () => {
     }
   }
 
-  const handlePaste = async () => {
-    try {
-      const text = await navigator.clipboard.readText()
-      setInput(text)
-    } catch (err) {
-      // Gracefully fail if permission denied
-      console.warn("Clipboard read permission denied")
+  const handleFormat = () => {
+    format()
+    setLastInputAction("format")
+    // Reset output highlights when Format is pressed
+    setLastOutputAction(null)
+  }
+
+  const handleMinify = () => {
+    minify()
+    setLastInputAction("minify")
+    // Reset output highlights when Minify is pressed
+    setLastOutputAction(null)
+  }
+
+  const handleCopyInput = async () => {
+    if (input.trim()) {
+      try {
+        await navigator.clipboard.writeText(input)
+        setShowCopyInputSuccess(true)
+        setLastInputAction("copy")
+        setTimeout(() => {
+          setShowCopyInputSuccess(false)
+          setLastInputAction(null)
+        }, 1500)
+      } catch (err) {
+        console.warn("Failed to copy to clipboard")
+      }
     }
   }
 
   const handleCopyOutput = () => {
     copyToClipboard()
-    setShowCopySuccess(true)
+    setShowCopyOutputSuccess(true)
+    setLastOutputAction("copy")
     setTimeout(() => {
-      setShowCopySuccess(false)
+      setShowCopyOutputSuccess(false)
+      setLastOutputAction(null)
     }, 1500)
   }
 
   const handleClearInput = () => {
     clear()
+    setLastInputAction("clear")
+    setTimeout(() => setLastInputAction(null), 2000)
+  }
+
+  const handleSortOutputKeys = (ascending: boolean) => {
+    sortOutputKeys(ascending)
+    // Highlight persists until another action is pressed
+    setLastOutputAction(ascending ? "sortAsc" : "sortDesc")
+  }
+
+  const handleRemoveOutputNulls = () => {
+    removeOutputNulls()
+    // Highlight persists until another action is pressed
+    setLastOutputAction("removeNulls")
   }
 
   return (
-    <div className="space-y-6">
-      {/* Primary Actions - Always visible horizontal toolbar */}
-      <div className="flex flex-wrap items-center gap-3 pb-4 border-b border-gray-200">
-        <button
-          onClick={format}
-          disabled={!input.trim()}
-          className="px-6 py-2.5 bg-blue-600 text-white rounded-lg font-medium shadow-sm hover:bg-blue-700 hover:shadow-md active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600 disabled:hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-150 text-sm"
-        >
-          Format
-        </button>
-        <button
-          onClick={minify}
-          disabled={!input.trim()}
-          className="px-4 py-2.5 text-gray-600 rounded-lg hover:bg-gray-100 hover:text-gray-900 active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1 transition-all duration-150 text-sm"
-        >
-          Minify
-        </button>
-        {output && (
-          <button
-            onClick={copyToClipboard}
-            className={`px-4 py-2.5 rounded-lg hover:bg-gray-100 hover:text-gray-900 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1 transition-all duration-150 text-sm ${
-              copied ? "bg-blue-50 text-blue-700" : "text-gray-600"
-            }`}
-          >
-            {copied ? "Copied!" : "Copy Output"}
-          </button>
-        )}
-        <button
-          onClick={clear}
-          disabled={!input.trim() && !output}
-          className="px-4 py-2.5 text-gray-600 rounded-lg hover:bg-gray-100 hover:text-gray-900 active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1 transition-all duration-150 text-sm"
-        >
-          Clear
-        </button>
-      </div>
-
+    <div>
       {/* Editor-first layout - Two columns on desktop, stacked on mobile */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Input Editor Panel - Always editable */}
@@ -132,17 +136,60 @@ export const JsonFormatter = () => {
           actionIcons={
             <>
               <button
-                onClick={handlePaste}
-                className="p-1.5 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
-                title="Paste from clipboard"
-                aria-label="Paste from clipboard"
+                onClick={handleFormat}
+                disabled={!input.trim()}
+                className={`p-1.5 rounded transition-colors duration-150 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-gray-500 ${
+                  lastInputAction === "format"
+                    ? "text-blue-600 bg-blue-50"
+                    : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+                }`}
+                title="Format JSON"
+                aria-label="Format JSON"
               >
-                <Clipboard className="w-4 h-4" />
+                <Sparkles className="w-4 h-4" />
+              </button>
+              <button
+                onClick={handleMinify}
+                disabled={!input.trim()}
+                className={`p-1.5 rounded transition-colors duration-150 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-gray-500 ${
+                  lastInputAction === "minify"
+                    ? "text-blue-600 bg-blue-50"
+                    : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+                }`}
+                title="Minify JSON"
+                aria-label="Minify JSON"
+              >
+                <Minus className="w-4 h-4" />
+              </button>
+              <button
+                onClick={handleCopyInput}
+                disabled={!input.trim()}
+                className={`p-1.5 rounded transition-colors duration-150 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-gray-300 ${
+                  showCopyInputSuccess
+                    ? "text-green-600 hover:bg-green-50"
+                    : lastInputAction === "copy"
+                      ? "text-blue-600 bg-blue-50"
+                      : input.trim()
+                        ? "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+                        : "text-gray-300 cursor-not-allowed"
+                }`}
+                title={showCopyInputSuccess ? "Copied!" : "Copy input"}
+                aria-label="Copy input"
+              >
+                {showCopyInputSuccess ? (
+                  <Check className="w-4 h-4" />
+                ) : (
+                  <Copy className="w-4 h-4" />
+                )}
               </button>
               <button
                 onClick={handleClearInput}
                 disabled={!input.trim()}
-                className="p-1.5 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-gray-500"
+                className={`p-1.5 rounded transition-colors duration-150 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-gray-500 ${
+                  lastInputAction === "clear"
+                    ? "text-blue-600 bg-blue-50"
+                    : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+                }`}
                 title="Clear input"
                 aria-label="Clear input"
               >
@@ -160,39 +207,97 @@ export const JsonFormatter = () => {
         </EditorPanel>
 
         {/* Output Editor Panel - Read-only */}
-        <EditorPanel
-          title="Formatted Output"
-          toolbarButtons={[
-            {
-              label: "Download",
-              onClick: downloadJson,
-              disabled: !output,
-            },
-          ]}
-          actionIcons={
-            <button
-              onClick={handleCopyOutput}
-              disabled={!output}
-              className={`p-1.5 rounded transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1 ${
-                showCopySuccess
-                  ? "text-green-600 hover:bg-green-50"
-                  : output
-                    ? "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
-                    : "text-gray-300 cursor-not-allowed"
-              }`}
-              title={showCopySuccess ? "Copied!" : "Copy output"}
-              aria-label="Copy output"
-            >
-              {showCopySuccess ? (
-                <Check className="w-4 h-4" />
-              ) : (
-                <Copy className="w-4 h-4" />
-              )}
-            </button>
+        <div>
+          <EditorPanel
+            title="Formatted Output"
+            toolbarButtons={[
+              {
+                label: "Download",
+                onClick: downloadJson,
+                disabled: !output,
+              },
+            ]}
+            actionIcons={
+            <>
+              <button
+                onClick={() => handleSortOutputKeys(true)}
+                disabled={!output}
+                className={`p-1.5 rounded transition-colors duration-150 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-gray-500 ${
+                  lastOutputAction === "sortAsc"
+                    ? "text-blue-600 bg-blue-50"
+                    : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+                }`}
+                title="Sort keys ascending"
+                aria-label="Sort keys ascending"
+              >
+                <ArrowUp className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => handleSortOutputKeys(false)}
+                disabled={!output}
+                className={`p-1.5 rounded transition-colors duration-150 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-gray-500 ${
+                  lastOutputAction === "sortDesc"
+                    ? "text-blue-600 bg-blue-50"
+                    : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+                }`}
+                title="Sort keys descending"
+                aria-label="Sort keys descending"
+              >
+                <ArrowDown className="w-4 h-4" />
+              </button>
+              <button
+                onClick={handleRemoveOutputNulls}
+                disabled={!output}
+                className={`p-1.5 rounded transition-colors duration-150 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-gray-500 ${
+                  lastOutputAction === "removeNulls"
+                    ? "text-blue-600 bg-blue-50"
+                    : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+                }`}
+                title="Remove null / empty"
+                aria-label="Remove null / empty"
+              >
+                <Filter className="w-4 h-4" />
+              </button>
+              <button
+                onClick={handleCopyOutput}
+                disabled={!output}
+                className={`p-1.5 rounded transition-colors duration-150 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-gray-300 ${
+                  showCopyOutputSuccess
+                    ? "text-green-600 hover:bg-green-50"
+                    : lastOutputAction === "copy"
+                      ? "text-blue-600 bg-blue-50"
+                      : output
+                        ? "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+                        : "text-gray-300 cursor-not-allowed"
+                }`}
+                title={showCopyOutputSuccess ? "Copied!" : "Copy output"}
+                aria-label="Copy output"
+              >
+                {showCopyOutputSuccess ? (
+                  <Check className="w-4 h-4" />
+                ) : (
+                  <Copy className="w-4 h-4" />
+                )}
+              </button>
+            </>
           }
-        >
-          <JsonOutput output={output} outputRef={outputRef} />
-        </EditorPanel>
+          >
+            <JsonOutput output={output} outputRef={outputRef} />
+          </EditorPanel>
+          
+          {/* Size information - Below Output editor */}
+          <div className="flex justify-end mt-2">
+            {sizeInfo && output ? (
+              <div className="px-2 py-1 bg-gray-50 rounded border border-gray-200">
+                <p className="text-xs text-gray-600">
+                  {sizeInfo.characters.toLocaleString()} chars • {sizeInfo.bytes.toLocaleString()} bytes
+                </p>
+              </div>
+            ) : !output ? (
+              <p className="text-xs text-gray-400 italic">Format JSON to see size information</p>
+            ) : null}
+          </div>
+        </div>
       </div>
 
       {/* Hidden file input */}
@@ -204,25 +309,6 @@ export const JsonFormatter = () => {
         className="hidden"
       />
 
-      {/* Transform Actions - Always visible, clearly labeled */}
-      <div>
-        <TransformActions
-          onSortKeys={sortKeys}
-          onRemoveNulls={removeNulls}
-          onConvertToPlainText={convertToPlainText}
-          onConvertFromPlainText={convertFromPlainText}
-        />
-      </div>
-
-      {/* Advanced Panel - Secondary informational, always visible */}
-      <div className="lg:max-w-md">
-        <AdvancedPanel
-          onValidate={validate}
-          validationResult={validationResult}
-          sizeInfo={sizeInfo}
-          hasOutput={!!output}
-        />
-      </div>
     </div>
   )
 }

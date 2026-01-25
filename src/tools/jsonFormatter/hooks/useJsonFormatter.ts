@@ -129,6 +129,34 @@ export const useJsonFormatter = () => {
     processJson(() => plainTextToJson(input))
   }
 
+  // Transform functions that operate on output
+  const transformOutput = (processor: (json: string) => string) => {
+    if (!output) return
+    try {
+      const result = processor(output)
+      setOutput(result)
+    } catch (err) {
+      // Errors in transform don't affect input editor
+      console.warn("Transform failed:", err)
+    }
+  }
+
+  const sortOutputKeys = (ascending: boolean) => {
+    transformOutput((json) => sortJsonKeys(json, ascending))
+  }
+
+  const removeOutputNulls = () => {
+    transformOutput((json) => removeNullAndEmpty(json))
+  }
+
+  const convertOutputToPlainText = () => {
+    transformOutput((json) => jsonToPlainText(json))
+  }
+
+  const convertOutputFromPlainText = () => {
+    transformOutput((json) => plainTextToJson(json))
+  }
+
   const validate = () => {
     const result = validateJson(input)
     setValidationResult(result)
@@ -207,6 +235,10 @@ export const useJsonFormatter = () => {
     removeNulls,
     convertToPlainText,
     convertFromPlainText,
+    sortOutputKeys,
+    removeOutputNulls,
+    convertOutputToPlainText,
+    convertOutputFromPlainText,
     validate,
     downloadJson,
     clear,
