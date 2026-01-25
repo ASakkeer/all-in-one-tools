@@ -37,9 +37,10 @@ src/
 
 ### Configuration Files
 - `tailwind.config.js` - Tailwind CSS configuration
-- `postcss.config.js` - PostCSS configuration
+- `postcss.config.js` - PostCSS configuration (uses @tailwindcss/postcss for v4)
 - `vite.config.ts` - Vite configuration with path aliases (@)
 - `tsconfig.app.json` - TypeScript configuration with path aliases
+- `src/index.css` - Tailwind CSS imports (v4 syntax: `@import "tailwindcss"`)
 
 ### Path Aliases
 - `@/*` maps to `./src/*` for cleaner imports
