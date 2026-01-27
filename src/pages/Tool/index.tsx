@@ -207,15 +207,11 @@ const Tool = () => {
 
   if (toolId === "diff-checker") {
     return (
-      <main className="min-h-screen bg-gray-50 py-10 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          {/* Page Header - Navigation, title, and description */}
-          <header className="mb-6">
-            {/* Back navigation */}
-            <nav
-              className="mb-3 flex items-center justify-start"
-              aria-label="Diff Checker navigation"
-            >
+      <main className="min-h-screen bg-gray-50 py-4 px-4 sm:px-6 lg:px-8 flex flex-col">
+        <div className="mx-auto w-full max-w-7xl flex-1 flex flex-col">
+          {/* Compact header */}
+          <header className="mb-3 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+            <div className="flex items-center gap-3">
               <Link
                 to="/"
                 className="inline-flex items-center gap-1.5 rounded-full border border-transparent px-3 py-1.5 text-sm text-gray-600 transition-colors duration-150 hover:bg-blue-50 hover:text-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-50"
@@ -224,46 +220,35 @@ const Tool = () => {
                 <span aria-hidden="true" className="text-base leading-none">
                   ←
                 </span>
-                <span className="font-medium">Back to Home</span>
+                <span className="font-medium">Home</span>
               </Link>
-            </nav>
-
-            {/* Title and description */}
-            <section
-              className="rounded-xl border border-gray-200 bg-white px-5 py-4 shadow-sm sm:px-6 sm:py-5"
-              aria-labelledby="diff-checker-title"
-            >
-              <p className="mb-1 text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
-                Developer Tool • Browser-based
-              </p>
-              <div className="flex flex-col gap-2 md:flex-row md:items-baseline md:justify-between">
+              <div>
                 <h1
                   id="diff-checker-title"
-                  className="text-2xl font-bold tracking-tight text-gray-900 md:text-3xl"
+                  className="text-xl font-semibold tracking-tight text-gray-900 md:text-2xl"
                 >
                   Diff Checker
                 </h1>
-                <p className="text-sm text-gray-600 md:max-w-md md:text-right">
-                  Compare two pieces of text side by side or inline, with clear
-                  highlights for additions, deletions, and modifications.
+                <p className="text-xs text-gray-600 md:text-sm">
+                  Compare two pieces of text side by side or inline with clear, readable
+                  highlights.
                 </p>
               </div>
-            </section>
+            </div>
           </header>
 
-          {/* Trust Signal - Security and Privacy Notice */}
-          <section className="mb-6 rounded-lg border border-gray-200 bg-blue-50 p-4">
-            <p className="text-sm text-gray-700">
-              <strong className="text-gray-900">🔒 Privacy &amp; Security:</strong> All comparisons
-              happen locally in your browser. No text is uploaded or stored on any server.
+          {/* Compact privacy banner */}
+          <section className="mb-4 rounded-md border border-gray-200 bg-blue-50 px-3 py-2">
+            <p className="text-xs text-gray-700 md:text-sm">
+              <strong className="text-gray-900">🔒 Privacy &amp; Security:</strong> All
+              comparisons happen locally in your browser. No text is uploaded or stored on any
+              server.
             </p>
           </section>
 
-          {/* Tool Container */}
-          <section aria-label="Diff Checker Tool">
-            <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
-              <DiffChecker />
-            </div>
+          {/* Full-height workspace */}
+          <section aria-label="Diff Checker Tool" className="flex-1 overflow-hidden">
+            <DiffChecker />
           </section>
         </div>
       </main>

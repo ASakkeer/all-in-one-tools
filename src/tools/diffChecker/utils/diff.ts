@@ -35,7 +35,8 @@ export interface DiffBlock {
 const canonicalize = (line: string, options: DiffOptions): string => {
   let result = line
   if (options.ignoreWhitespace) {
-    result = result.trim()
+    // Normalize all whitespace runs to a single space and trim ends
+    result = result.replace(/\s+/g, " ").trim()
   }
   if (options.ignoreCase) {
     result = result.toLowerCase()
@@ -47,6 +48,13 @@ const areEqual = (a: string, b: string, options: DiffOptions): boolean => {
   return canonicalize(a, options) === canonicalize(b, options)
 }
 
+interface LineInfo {
+  text: string
+  index: number
+}
+
+const isEmptyLine = (text: string): boolean => text.trim().length === 0
+
 // Basic LCS-based diff for lines
 const computeLineDiff = (
   leftText: string,
@@ -56,8 +64,19 @@ const computeLineDiff = (
   const leftLines = leftText.split(/\r?\n/)
   const rightLines = rightText.split(/\r?\n/)
 
-  const n = leftLines.length
-  const m = rightLines.length
+  const leftInfos: LineInfo[] = leftLines.map((text, index) => ({ text, index }))
+  const rightInfos: LineInfo[] = rightLines.map((text, index) => ({ text, index }))
+
+  const leftSeq = options.ignoreEmptyLines
+    ? leftInfos.filter((line) => !isEmptyLine(line.text))
+    : leftInfos
+
+  const rightSeq = options.ignoreEmptyLines
+    ? rightInfos.filter((line) => !isEmptyLine(line.text))
+    : rightInfos
+
+  const n = leftSeq.length
+  const m = rightSeq.length
 
   const dp: number[][] = Array.from({ length: n + 1 }, () =>
     Array(m + 1).fill(0),
@@ -65,11 +84,7 @@ const computeLineDiff = (
 
   for (let i = n - 1; i >= 0; i--) {
     for (let j = m - 1; j >= 0; j--) {
-      if (
-        areEqual(leftLines[i], rightLines[j], options) &&
-        (!options.ignoreEmptyLines ||
-          canonicalize(leftLines[i], options).length > 0)
-      ) {
+      if (areEqual(leftSeq[i].text, rightSeq[j].text, options)) {
         dp[i][j] = dp[i + 1][j + 1] + 1
       } else {
         dp[i][j] = Math.max(dp[i + 1][j], dp[i][j + 1])
@@ -82,59 +97,56 @@ const computeLineDiff = (
   let j = 0
 
   while (i < n && j < m) {
-    const left = leftLines[i]
-    const right = rightLines[j]
+    const left = leftSeq[i]
+    const right = rightSeq[j]
 
-    if (
-      areEqual(left, right, options) ||
-      (options.ignoreEmptyLines &&
-        canonicalize(left, options).length === 0 &&
-        canonicalize(right, options).length === 0)
-    ) {
+    if (areEqual(left.text, right.text, options)) {
       diff.push({
         type: "equal",
-        left,
-        right,
-        indexLeft: i,
-        indexRight: j,
+        left: left.text,
+        right: right.text,
+        indexLeft: left.index,
+        indexRight: right.index,
       })
       i++
       j++
     } else if (dp[i + 1][j] >= dp[i][j + 1]) {
       diff.push({
         type: "delete",
-        left,
-        indexLeft: i,
-        indexRight: j,
+        left: left.text,
+        indexLeft: left.index,
+        indexRight: right.index,
       })
       i++
     } else {
       diff.push({
         type: "insert",
-        right,
-        indexLeft: i,
-        indexRight: j,
+        right: right.text,
+        indexLeft: left.index,
+        indexRight: right.index,
       })
       j++
     }
   }
 
   while (i < n) {
-      diff.push({
-        type: "delete",
-        left: leftLines[i],
-        indexLeft: i,
-        indexRight: m,
-      })
+    const left = leftSeq[i]
+    diff.push({
+      type: "delete",
+      left: left.text,
+      indexLeft: left.index,
+      indexRight: rightLines.length,
+    })
     i++
   }
 
   while (j < m) {
+    const right = rightSeq[j]
     diff.push({
       type: "insert",
-      right: rightLines[j],
-      indexLeft: n,
-      indexRight: j,
+      right: right.text,
+      indexLeft: leftLines.length,
+      indexRight: right.index,
     })
     j++
   }

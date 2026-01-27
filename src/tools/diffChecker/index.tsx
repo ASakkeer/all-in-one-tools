@@ -5,7 +5,7 @@ import { DiffOptions } from "./components/DiffOptions"
 import { DiffSummaryBar } from "./components/DiffSummary"
 import { DiffView } from "./components/DiffView"
 import type { DiffViewMode } from "./hooks/useDiffChecker"
-import { ArrowLeftRight, ChevronLeft, ChevronRight } from "lucide-react"
+import { ArrowLeftRight, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react"
 
 export const DiffChecker = () => {
   const {
@@ -19,7 +19,6 @@ export const DiffChecker = () => {
     summary,
     activeDiffIndex,
     hasDiffs,
-    isIdentical,
     showUnchanged,
     toggleOption,
     toggleShowUnchanged,
@@ -39,6 +38,7 @@ export const DiffChecker = () => {
 
   const leftGutterRef = useRef<HTMLDivElement | null>(null)
   const rightGutterRef = useRef<HTMLDivElement | null>(null)
+  const diffSectionRef = useRef<HTMLDivElement | null>(null)
 
   const handleLeftScroll: React.UIEventHandler<HTMLTextAreaElement> = (event) => {
     if (leftGutterRef.current) {
@@ -52,8 +52,14 @@ export const DiffChecker = () => {
     }
   }
 
+  const handleScrollToDiff = () => {
+    if (diffSectionRef.current) {
+      diffSectionRef.current.scrollIntoView({ behavior: "smooth", block: "start" })
+    }
+  }
+
   return (
-    <div className="space-y-5">
+    <div className="flex h-full flex-col gap-3 overflow-hidden pb-8">
       {/* Diff controls bar - options, view mode, summary */}
       <div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-50 p-3 sm:flex-row sm:items-center sm:justify-between">
         {/* Group A: Ignore options */}
@@ -99,7 +105,7 @@ export const DiffChecker = () => {
         </div>
       </div>
 
-      {/* Action bar - merge + navigation */}
+      {/* Action bar - merge and navigation */}
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         {/* Apply all actions */}
         <div className="inline-flex flex-wrap items-center gap-2 text-[11px] text-gray-600">
@@ -156,20 +162,22 @@ export const DiffChecker = () => {
         </div>
       </div>
 
-      {/* Two-column text inputs */}
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <div>
-          <label
-            htmlFor="diff-left-text"
-            className="mb-2 block text-sm font-medium text-gray-700"
-          >
-            Original text
-          </label>
-          <div className="rounded-lg border border-gray-200 bg-gray-50">
-            <div className="flex max-h-64">
+      {/* Main workspace: editors + diff viewer */}
+      <div className="flex flex-1 flex-col gap-3 overflow-hidden">
+        {/* Input editors section */}
+        <div className="flex flex-[3] min-h-0 gap-4">
+          {/* Original text editor */}
+          <div className="flex flex-1 flex-col min-w-0">
+            <label
+              htmlFor="diff-left-text"
+              className="mb-2 block text-sm font-medium text-gray-700"
+            >
+              Original text
+            </label>
+            <div className="flex flex-1 rounded-lg border border-gray-200 bg-gray-50 overflow-hidden">
               <div
                 ref={leftGutterRef}
-                className="hidden select-none border-r border-gray-200 bg-gray-100 px-2 py-3 text-xs text-gray-400 sm:block sm:overflow-y-auto"
+                className="hidden h-full select-none border-r border-gray-200 bg-gray-100 px-2 py-3 text-xs text-gray-400 sm:block sm:overflow-auto"
                 aria-hidden="true"
               >
                 {leftLines.map((_, index) => (
@@ -183,24 +191,24 @@ export const DiffChecker = () => {
                 value={leftText}
                 onChange={(e) => setLeftText(e.target.value)}
                 onScroll={handleLeftScroll}
-                className="block h-64 w-full flex-1 resize-none rounded-lg border-0 bg-transparent p-3 text-sm text-gray-900 outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                className="block h-full w-full flex-1 resize-none border-0 bg-transparent p-3 text-sm text-gray-900 outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
                 placeholder="Paste or type the original text here..."
               />
             </div>
           </div>
-        </div>
-        <div>
-          <label
-            htmlFor="diff-right-text"
-            className="mb-2 block text-sm font-medium text-gray-700"
-          >
-            Modified text
-          </label>
-          <div className="rounded-lg border border-gray-200 bg-gray-50">
-            <div className="flex max-h-64">
+
+          {/* Modified text editor */}
+          <div className="flex flex-1 flex-col min-w-0">
+            <label
+              htmlFor="diff-right-text"
+              className="mb-2 block text-sm font-medium text-gray-700"
+            >
+              Modified text
+            </label>
+            <div className="flex flex-1 rounded-lg border border-gray-200 bg-gray-50 overflow-hidden">
               <div
                 ref={rightGutterRef}
-                className="hidden select-none border-r border-gray-200 bg-gray-100 px-2 py-3 text-xs text-gray-400 sm:block sm:overflow-y-auto"
+                className="hidden h-full select-none border-r border-gray-200 bg-gray-100 px-2 py-3 text-xs text-gray-400 sm:block sm:overflow-auto"
                 aria-hidden="true"
               >
                 {rightLines.map((_, index) => (
@@ -214,37 +222,69 @@ export const DiffChecker = () => {
                 value={rightText}
                 onChange={(e) => setRightText(e.target.value)}
                 onScroll={handleRightScroll}
-                className="block h-64 w-full flex-1 resize-none rounded-lg border-0 bg-transparent p-3 text-sm text-gray-900 outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                className="block h-full w-full flex-1 resize-none border-0 bg-transparent p-3 text-sm text-gray-900 outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
                 placeholder="Paste or type the modified text here..."
               />
             </div>
           </div>
         </div>
+
+        {/* Diff viewer section */}
+        <div
+          ref={diffSectionRef}
+          className="flex flex-[2] min-h-0 overflow-hidden"
+        >
+          {hasDiffs ? (
+            <DiffView
+              blocks={blocks}
+              viewMode={viewMode}
+              activeDiffIndex={activeDiffIndex}
+              onApplyLeftToRight={applyChangeLeftToRight}
+              onApplyRightToLeft={applyChangeRightToLeft}
+              showUnchanged={showUnchanged}
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center rounded-lg border border-green-100 bg-green-50 px-4 py-6 text-sm text-gray-700">
+              <div className="text-center">
+                {leftText || rightText ? (
+                  <>
+                    <p className="font-medium text-gray-900">
+                      No differences found. The texts are identical.
+                    </p>
+                    <p className="mt-1 text-xs text-gray-600">
+                      This comparison respects the current ignore options.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p className="font-medium text-gray-900">
+                      Paste text on both sides to see differences here.
+                    </p>
+                    <p className="mt-1 text-xs text-gray-600">
+                      This area will show a line-by-line comparison once you add content.
+                    </p>
+                  </>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* Identical message or diff view */}
-      {isIdentical && (leftText || rightText) ? (
-        <div className="flex items-center justify-center rounded-lg border border-green-100 bg-green-50 px-4 py-6 text-sm text-gray-700">
-          <div className="text-center">
-            <p className="font-medium text-gray-900">
-              No differences found. The texts are identical.
-            </p>
-            <p className="mt-1 text-xs text-gray-600">
-              This comparison respects the current ignore options.
-            </p>
-          </div>
+      {/* Floating View differences button - centered at bottom of viewport */}
+      {hasDiffs && (
+        <div className="pointer-events-none fixed inset-x-0 bottom-6 z-30 flex justify-center">
+          <button
+            type="button"
+            onClick={handleScrollToDiff}
+            className="pointer-events-auto inline-flex items-center gap-1 whitespace-nowrap rounded-full bg-blue-600 px-4 py-1.5 text-xs font-medium text-white shadow-md transition-colors duration-150 hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            aria-label="Scroll to diff results"
+            title="Scroll to diff results"
+          >
+            <span>View differences</span>
+            <ChevronDown className="h-3 w-3" />
+          </button>
         </div>
-      ) : (
-        hasDiffs && (
-          <DiffView
-            blocks={blocks}
-            viewMode={viewMode}
-            activeDiffIndex={activeDiffIndex}
-            onApplyLeftToRight={applyChangeLeftToRight}
-            onApplyRightToLeft={applyChangeRightToLeft}
-            showUnchanged={showUnchanged}
-          />
-        )
       )}
     </div>
   )

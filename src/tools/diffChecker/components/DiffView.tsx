@@ -58,7 +58,7 @@ export const DiffView: FC<DiffViewProps> = ({
 
   if (viewMode === "inline") {
     return (
-      <div className="mt-4 max-h-80 overflow-auto rounded-md border border-gray-200 bg-gray-50 text-xs">
+      <div className="h-full w-full overflow-auto rounded-md border border-gray-200 bg-gray-50 text-xs">
         <ul className="divide-y divide-gray-100">
           {visibleBlocks.map((block, index) => {
             const isActive = index === activeDiffIndex
@@ -121,7 +121,7 @@ export const DiffView: FC<DiffViewProps> = ({
 
   // Side-by-side view
   return (
-    <div className="mt-4 max-h-80 overflow-auto rounded-md border border-gray-200 bg-gray-50 text-xs">
+    <div className="h-full w-full overflow-auto rounded-md border border-gray-200 bg-gray-50 text-xs">
       <table className="min-w-full border-collapse text-[11px]">
         <thead className="bg-gray-100 text-[10px] uppercase tracking-wide text-gray-500">
           <tr>
