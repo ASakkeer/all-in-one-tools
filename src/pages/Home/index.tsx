@@ -1,33 +1,46 @@
 // Home page component - Landing page with tool cards
 import { useNavigate } from "react-router-dom"
 
+type ToolStatus = "active" | "coming-soon"
+
+interface ToolConfig {
+  id: string
+  name: string
+  description: string
+  route: string
+  status: ToolStatus
+}
+
+const tools: ToolConfig[] = [
+  {
+    id: "json-formatter",
+    name: "JSON Formatter",
+    description: "Format and validate JSON data",
+    route: "/tools/json-formatter",
+    status: "active",
+  },
+  {
+    id: "text-cleaner",
+    name: "Text Cleaner",
+    description: "Clean and normalize messy text",
+    route: "/tools/text-cleaner",
+    status: "active",
+  },
+  {
+    id: "image-compressor",
+    name: "Image Compressor",
+    description: "Compress images without losing quality",
+    route: "/tools/image-compressor",
+    status: "coming-soon",
+  },
+]
+
 const Home = () => {
   const navigate = useNavigate()
 
-  const tools = [
-    {
-      id: "json-formatter",
-      name: "JSON Formatter",
-      description: "Format and validate JSON data",
-      active: true,
-    },
-    {
-      id: "text-cleaner",
-      name: "Text Cleaner",
-      description: "Clean and format text",
-      active: false,
-    },
-    {
-      id: "image-compressor",
-      name: "Image Compressor",
-      description: "Compress images without losing quality",
-      active: false,
-    },
-  ]
-
-  const handleToolClick = (toolId: string, active: boolean) => {
-    if (active) {
-      navigate(`/tools/${toolId}`)
+  const handleToolClick = (tool: ToolConfig) => {
+    if (tool.status === "active") {
+      navigate(tool.route)
     }
   }
 
@@ -49,12 +62,12 @@ const Home = () => {
           {tools.map((tool) => (
             <div
               key={tool.id}
-              onClick={() => handleToolClick(tool.id, tool.active)}
+              onClick={() => handleToolClick(tool)}
               className={`
                 bg-white rounded-lg shadow-sm border border-gray-200 p-6
                 transition-all duration-200
                 ${
-                  tool.active
+                  tool.status === "active"
                     ? "cursor-pointer hover:shadow-md hover:border-gray-300"
                     : "opacity-60 cursor-not-allowed"
                 }
@@ -64,7 +77,7 @@ const Home = () => {
                 {tool.name}
               </h3>
               <p className="text-gray-600 text-sm mb-4">{tool.description}</p>
-              {!tool.active && (
+              {tool.status !== "active" && (
                 <span className="inline-block text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded">
                   Coming soon
                 </span>
