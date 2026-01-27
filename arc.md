@@ -19,7 +19,9 @@ All-in-one tools application built with React, TypeScript, Vite, Tailwind CSS, R
   - `src/pages/Tool` – generic tool host that switches on `toolId` (currently only `json-formatter`) and adds SEO + page-level layout.
 - **Tools**
   - `src/tools/` – each tool gets its own folder with `index.tsx`, `hooks/`, `components/`, `utils/`.
-  - Current concrete implementation: `jsonFormatter` following this pattern.
+  - Current concrete implementations:
+    - `jsonFormatter` – JSON formatting, validation, and transformation.
+    - `wordCounter` – text statistics (words, characters, sentences, lines, paragraphs).
 - **Styling & Design System**
   - Tailwind CSS v4 (via `@import "tailwindcss"` in `src/index.css`) as the primary design system.
   - Additional app-level styles may live in `src/App.css` (currently Vite boilerplate) and can be trimmed or repurposed.
@@ -37,7 +39,9 @@ src/
  │   └─ Tool/             # Tool page (dynamic route)
  │       └─ index.tsx
  ├─ tools/
- │   └─ jsonFormatter/    # Individual tool components
+ │   ├─ jsonFormatter/    # JSON formatter tool
+ │   │   └─ index.tsx
+ │   └─ wordCounter/      # Word Counter tool
  │       └─ index.tsx
  ├─ shared/
  │   └─ components/       # Shared/reusable components
@@ -74,6 +78,7 @@ src/
 - ✅ Tailwind CSS set up
 - ✅ Redux store configured
 - ✅ JSON Formatter tool implemented
+- ✅ Word Counter tool implemented
 
 ## Component Structure & Responsibilities
 
