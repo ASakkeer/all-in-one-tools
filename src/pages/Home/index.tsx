@@ -12,10 +12,10 @@ const Home = () => {
       active: true,
     },
     {
-      id: "text-cleaner",
-      name: "Text Cleaner",
-      description: "Clean and format text",
-      active: false,
+      id: "word-counter",
+      name: "Word Counter",
+      description: "Count words, characters, and text statistics",
+      active: true,
     },
     {
       id: "image-compressor",
