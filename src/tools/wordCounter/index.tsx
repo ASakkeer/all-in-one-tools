@@ -9,10 +9,10 @@ export const WordCounter = () => {
   const hasText = text.trim().length > 0
 
   return (
-    <div className="space-y-6">
-      {/* Two-column layout on desktop, stacked on smaller screens */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <div>
+    <div className="flex h-full flex-col gap-3 overflow-hidden">
+      {/* Main workspace - input on the left, stats on the right */}
+      <div className="flex flex-1 flex-col gap-6 lg:flex-row">
+        <div className="flex flex-1 flex-col min-w-0">
           <TextInput value={text} onChange={setText} />
           <div className="mt-3 flex items-center justify-between">
             <p className="text-xs text-gray-500">
@@ -29,7 +29,9 @@ export const WordCounter = () => {
           </div>
         </div>
 
-        <StatsPanel stats={stats} />
+        <div className="flex flex-1 min-w-0">
+          <StatsPanel stats={stats} />
+        </div>
       </div>
     </div>
   )

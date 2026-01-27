@@ -16,7 +16,7 @@ All-in-one tools application built with React, TypeScript, Vite, Tailwind CSS, R
   - `src/app/providers.tsx` – `Providers` wraps children in Redux `<Provider store={store}>` (not yet wired into `main.tsx` but designed as the global state injection point).
 - **Pages**
   - `src/pages/Home` – marketing-style landing with tool grid.
-  - `src/pages/Tool` – generic tool host that switches on `toolId` (currently only `json-formatter`) and adds SEO + page-level layout.
+  - `src/pages/Tool` – generic tool host that switches on `toolId` and renders the active tool inside a shared page shell (back navigation, compact header, privacy banner, and full-height workspace).
 - **Tools**
   - `src/tools/` – each tool gets its own folder with `index.tsx`, `hooks/`, `components/`, `utils/`.
   - Current concrete implementations:
@@ -102,13 +102,13 @@ src/
   - Cards use Tailwind utility classes for a clean, card-based layout (`bg-white`, `rounded-lg`, `shadow-sm`, `border`, `hover:shadow-md`).
   - Inactive tools are visually de-emphasised via `opacity-60`, `cursor-not-allowed`, and a `Coming soon` pill.
 - `pages/Tool/index.tsx`
-  - Generic host for tool detail pages, currently hard-coded for `toolId === "json-formatter"`.
-  - Injects `JsonLdSchema` (SoftwareApplication schema) into `<head>` for SEO.
-  - Provides page-level layout: full-height background, centered container, and the **tool header** and **trust notice** above the tool UI.
-  - Implements a premium-style header for JSON Formatter:
-    - Back navigation (`Link` to `/`) at top-left.
-    - Card-like header section with eyebrow label, title, and right-aligned subtitle.
-    - Below-header privacy/security banner and then the tool container.
+  - Generic host for tool detail pages; switches on `toolId` to render `JsonFormatter`, `WordCounter`, or `DiffChecker`.
+  - Injects `JsonLdSchema` (SoftwareApplication schema) into `<head>` for JSON Formatter.
+  - Uses a shared page shell for all tools:
+    - Full-height flex layout with `min-h-screen bg-gray-50` and padded viewport.
+    - Compact header row with back navigation (`Home` pill + arrow), tool title, and one-line description.
+    - A compact privacy banner directly beneath the header.
+    - A full-height, full-width workspace region where each tool manages its own internal layout.
 
 ### JSON Formatter Tool Structure
 ```
@@ -135,10 +135,10 @@ src/tools/jsonFormatter/
   - Manages input/output action state (e.g., last pressed button for subtle highlighting).
   - Defines upload, formatting, minify, copy, clear, and transform interactions.
 - Layout:
-  - Uses a responsive two-column grid on `lg:` and stacks on smaller viewports:
-    - Left: `EditorPanel` with `JsonInput` and input actions.
-    - Right: `EditorPanel` with `JsonOutput` and output actions, followed by size info.
-  - Hidden file input at the bottom for JSON file uploads.
+  - Full-height, editor-first workspace:
+    - Root `div` uses a flex column layout sized by the page shell (`flex h-full flex-col`).
+    - Two editor panels arranged side by side on large screens and stacked on small screens.
+    - Editors fill the available vertical space and scroll internally; a hidden file input lives at the root of the tool.
 
 ### JSON Formatter UX Principles
 1. **Editors never disappear** - Input editor always remains editable
