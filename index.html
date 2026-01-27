@@ -4,7 +4,37 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>all-in-one-tools</title>
+    
+    <!-- Content Security Policy - Production-ready with Monaco Editor support -->
+    <!-- 
+      Development: Includes localhost for HMR (ws://localhost:* http://localhost:*)
+      Production: Remove localhost connections via HTTP headers for stricter security
+      Monaco Editor requires 'unsafe-eval' for workers - this is safe as Monaco is bundled locally
+      Blocks all external scripts, iframes, objects, and embeds for maximum security
+    -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' ws://localhost:* http://localhost:*; frame-src 'none'; object-src 'none'; embed-src 'none'; base-uri 'self'; form-action 'self'; worker-src 'self' blob:;" />
+    
+    <!-- SEO Metadata - Generic global branding -->
+    <title>Simple Web Tools - Free Online Tools for Developers</title>
+    <meta name="description" content="Free online tools that run entirely in your browser. No login required. No data sent to servers. Simple, fast, and secure web tools for developers and professionals." />
+    <meta name="keywords" content="free web tools, online tools, developer tools, browser tools, no login tools, client-side tools" />
+    <meta name="author" content="Simple Web Tools" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Canonical URL - tools.sakkeer.com domain -->
+    <link rel="canonical" href="https://tools.sakkeer.com/" />
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Simple Web Tools - Free Online Tools for Developers" />
+    <meta property="og:description" content="Free online tools that run entirely in your browser. No login required. No data sent to servers." />
+    <meta property="og:url" content="https://tools.sakkeer.com/" />
+    <meta property="og:site_name" content="Simple Web Tools" />
+    
+    <!-- Additional Security Headers -->
+    <!-- Note: X-Frame-Options must be set via HTTP header, not meta tag -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
   </head>
   <body>
     <div id="root"></div>
