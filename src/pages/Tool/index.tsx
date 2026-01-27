@@ -1,5 +1,5 @@
 // Tool page component - Displays individual tool pages
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { useEffect } from "react"
 import { JsonFormatter } from "@/tools/jsonFormatter"
 
@@ -73,29 +73,62 @@ const Tool = () => {
       <>
         {/* JSON-LD Structured Data - Critical for SEO */}
         <JsonLdSchema />
-        <main className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        <main className="min-h-screen bg-gray-50 py-10 px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
-            {/* Header Section - Semantic HTML for SEO */}
-            <header className="text-center mb-10">
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                JSON Formatter
-              </h1>
-              <p className="text-gray-600 text-lg">
-                Format, validate, and transform JSON data securely in your browser
-              </p>
+            {/* Page Header - Navigation, title, and description */}
+            <header className="mb-6">
+              {/* Back navigation */}
+              <nav
+                className="mb-3 flex items-center justify-start"
+                aria-label="JSON Formatter navigation"
+              >
+                <Link
+                  to="/"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-transparent px-3 py-1.5 text-sm text-gray-600 transition-colors duration-150 hover:bg-blue-50 hover:text-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-50"
+                  aria-label="Go back to home"
+                >
+                  <span aria-hidden="true" className="text-base leading-none">
+                    ←
+                  </span>
+                  <span className="font-medium">Back to Home</span>
+                </Link>
+              </nav>
+
+              {/* Title and description */}
+              <section
+                className="rounded-xl border border-gray-200 bg-white px-5 py-4 shadow-sm sm:px-6 sm:py-5"
+                aria-labelledby="json-formatter-title"
+              >
+                <p className="mb-1 text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
+                  Developer Tool • Browser-based
+                </p>
+                <div className="flex flex-col gap-2 md:flex-row md:items-baseline md:justify-between">
+                  <h1
+                    id="json-formatter-title"
+                    className="text-2xl font-bold tracking-tight text-gray-900 md:text-3xl"
+                  >
+                    JSON Formatter
+                  </h1>
+                  <p className="text-sm text-gray-600 md:max-w-md md:text-right">
+                    Format, validate, and transform JSON data securely in your browser.
+                    All processing happens locally on your device.
+                  </p>
+                </div>
+              </section>
             </header>
-            
+
             {/* Trust Signal - Security and Privacy Notice */}
-            <section className="mb-6 bg-blue-50 border border-gray-200 rounded-lg p-4">
+            <section className="mb-6 rounded-lg border border-gray-200 bg-blue-50 p-4">
               <p className="text-sm text-gray-700">
-                <strong className="text-gray-900">🔒 Privacy & Security:</strong> All processing happens locally in your browser. 
-                No data is sent to any server. Your JSON content never leaves your device.
+                <strong className="text-gray-900">🔒 Privacy &amp; Security:</strong> All processing happens
+                locally in your browser. No data is sent to any server. Your JSON content never leaves your
+                device.
               </p>
             </section>
 
             {/* Tool Container */}
             <section aria-label="JSON Formatter Tool">
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+              <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
                 <JsonFormatter />
               </div>
             </section>
