@@ -22,6 +22,7 @@ All-in-one tools application built with React, TypeScript, Vite, Tailwind CSS, R
   - Current concrete implementations:
     - `jsonFormatter` – JSON formatting, validation, and transformation.
     - `wordCounter` – text statistics (words, characters, sentences, lines, paragraphs).
+    - `diffChecker` – text diffing with side-by-side and inline views.
 - **Styling & Design System**
   - Tailwind CSS v4 (via `@import "tailwindcss"` in `src/index.css`) as the primary design system.
   - Additional app-level styles may live in `src/App.css` (currently Vite boilerplate) and can be trimmed or repurposed.
@@ -79,6 +80,7 @@ src/
 - ✅ Redux store configured
 - ✅ JSON Formatter tool implemented
 - ✅ Word Counter tool implemented
+- ✅ Diff Checker tool implemented
 
 ## Component Structure & Responsibilities
 

@@ -12,6 +12,12 @@ const Home = () => {
       active: true,
     },
     {
+      id: "diff-checker",
+      name: "Diff Checker",
+      description: "Compare text and highlight differences",
+      active: true,
+    },
+    {
       id: "word-counter",
       name: "Word Counter",
       description: "Count words, characters, and text statistics",

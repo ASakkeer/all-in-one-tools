@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom"
 import { useEffect } from "react"
 import { JsonFormatter } from "@/tools/jsonFormatter"
 import { WordCounter } from "@/tools/wordCounter"
+import { DiffChecker } from "@/tools/diffChecker"
 
 // JSON-LD Structured Data for SEO - SoftwareApplication schema
 // This helps search engines understand the tool and its purpose
@@ -197,6 +198,71 @@ const Tool = () => {
           <section aria-label="Word Counter Tool">
             <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
               <WordCounter />
+            </div>
+          </section>
+        </div>
+      </main>
+    )
+  }
+
+  if (toolId === "diff-checker") {
+    return (
+      <main className="min-h-screen bg-gray-50 py-10 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          {/* Page Header - Navigation, title, and description */}
+          <header className="mb-6">
+            {/* Back navigation */}
+            <nav
+              className="mb-3 flex items-center justify-start"
+              aria-label="Diff Checker navigation"
+            >
+              <Link
+                to="/"
+                className="inline-flex items-center gap-1.5 rounded-full border border-transparent px-3 py-1.5 text-sm text-gray-600 transition-colors duration-150 hover:bg-blue-50 hover:text-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-50"
+                aria-label="Go back to home"
+              >
+                <span aria-hidden="true" className="text-base leading-none">
+                  ←
+                </span>
+                <span className="font-medium">Back to Home</span>
+              </Link>
+            </nav>
+
+            {/* Title and description */}
+            <section
+              className="rounded-xl border border-gray-200 bg-white px-5 py-4 shadow-sm sm:px-6 sm:py-5"
+              aria-labelledby="diff-checker-title"
+            >
+              <p className="mb-1 text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
+                Developer Tool • Browser-based
+              </p>
+              <div className="flex flex-col gap-2 md:flex-row md:items-baseline md:justify-between">
+                <h1
+                  id="diff-checker-title"
+                  className="text-2xl font-bold tracking-tight text-gray-900 md:text-3xl"
+                >
+                  Diff Checker
+                </h1>
+                <p className="text-sm text-gray-600 md:max-w-md md:text-right">
+                  Compare two pieces of text side by side or inline, with clear
+                  highlights for additions, deletions, and modifications.
+                </p>
+              </div>
+            </section>
+          </header>
+
+          {/* Trust Signal - Security and Privacy Notice */}
+          <section className="mb-6 rounded-lg border border-gray-200 bg-blue-50 p-4">
+            <p className="text-sm text-gray-700">
+              <strong className="text-gray-900">🔒 Privacy &amp; Security:</strong> All comparisons
+              happen locally in your browser. No text is uploaded or stored on any server.
+            </p>
+          </section>
+
+          {/* Tool Container */}
+          <section aria-label="Diff Checker Tool">
+            <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
+              <DiffChecker />
             </div>
           </section>
         </div>
