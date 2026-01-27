@@ -288,4 +288,3 @@ src/tools/jsonFormatter/
 2. Extract shared layout primitives (`ToolHeader`, `TrustNotice`, `EditorPanel`) into `shared/components` when duplication becomes clear.
 3. Wire `Providers` into `main.tsx` once cross-tool Redux state is required.
 4. Add error boundaries and loading states around heavy tools (e.g., Monaco-based editors) as the tool catalog grows.
-
