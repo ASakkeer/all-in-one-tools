@@ -54,9 +54,21 @@ src/
  │       └─ index.tsx
  ├─ shared/
  │   └─ components/       # Shared/reusable components
+ ├─ config/
+ │   └─ emailjs.ts        # Central EmailJS configuration (service/template/public key from env)
+ ├─ utils/
+ │   └─ sendEmail.ts      # Shared EmailJS sending helper for all forms
  ├─ styles/               # Additional styles (if needed)
  └─ main.tsx              # Application entry point
 ```
+
+### Email & Feedback Integration
+
+- `src/config/emailjs.ts` – central EmailJS configuration (service ID, template ID, public key) sourced from Vite environment variables to keep real keys out of the codebase while avoiding duplication.
+- `src/utils/sendEmail.ts` – shared EmailJS sending helper that accepts a structured payload (`form_type`, `user_name`, `user_email`, `message`) so multiple forms can use a single EmailJS template.
+- `src/pages/Contact/index.tsx` – contact form wired to `sendEmail` with loading, success, and error states; sends `form_type: "Contact"`.
+- `src/pages/Home/LandingPage.tsx` – feedback section wired to `sendEmail` with loading, success, and error states; sends `form_type: "Feedback / Tool Request"` and does not require name or email.
+
 
 ## Technology Stack
 - **Framework**: React 19.2.0

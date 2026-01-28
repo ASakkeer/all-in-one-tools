@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom"
 import heroBackground from "@/assets/images/home-bg.jpg"
 import coffeeCup from "@/assets/images/coffee-cup.png"
 import bmcQr from "@/assets/images/bmc_qr.png"
+import { sendEmail } from "@/utils/sendEmail"
 
 type ToolStatus = "active" | "coming-soon"
 
@@ -632,11 +633,13 @@ const FeedbackSection: React.FC = () => {
   const [email, setEmail] = useState("")
   const [error, setError] = useState<string | null>(null)
   const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
     setError(null)
     setSubmitted(false)
+    setIsSubmitting(false)
 
     const trimmedMessage = message.trim()
     if (!trimmedMessage) {
@@ -652,10 +655,26 @@ const FeedbackSection: React.FC = () => {
       }
     }
 
-    // There is no backend yet; this is intentionally local.
-    // In the future, this can post to a lightweight feedback endpoint.
-    setSubmitted(true)
-    setMessage("")
+    setIsSubmitting(true)
+
+    try {
+      await sendEmail({
+        form_type: "Feedback or Tool Request",
+        user_name: "Anonymous",
+        user_email: email.trim() || "Not provided",
+        message: message.trim(),
+      })
+
+      setSubmitted(true)
+      setMessage("")
+      setEmail("")
+    } catch {
+      setError(
+        "Something went wrong while sending your feedback. Please try again in a moment or use the contact page instead."
+      )
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -714,16 +733,17 @@ const FeedbackSection: React.FC = () => {
           )}
           {submitted && !error && (
             <p className="text-sm text-emerald-700 bg-emerald-50 border border-emerald-100 rounded-md px-3 py-2 animate-fade-in-soft">
-              Thanks for sharing. Your note stays local for now; a lightweight way to collect and
-              review feedback will be added soon.
+              Thanks for sharing. Your feedback has been sent and will only be used to understand
+              how to make these tools more useful.
             </p>
           )}
           <div className="pt-1">
             <button
               type="submit"
+              disabled={isSubmitting}
               className="inline-flex w-full sm:w-auto items-center justify-center rounded-xl bg-[#088108] px-4 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-[#066306] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 transition-all duration-200"
             >
-              Send feedback
+              {isSubmitting ? "Sending…" : "Send feedback"}
             </button>
           </div>
         </form>

@@ -1,6 +1,7 @@
 // Contact page for Simple Web Tools - calm, minimal, trust-focused communication channel
-import { FormEvent, useState } from "react"
+import { type FormEvent, useState } from "react"
 import { Link } from "react-router-dom"
+import { sendEmail } from "@/utils/sendEmail"
 
 const Contact = () => {
   const [name, setName] = useState("")
@@ -8,11 +9,13 @@ const Contact = () => {
   const [message, setMessage] = useState("")
   const [error, setError] = useState<string | null>(null)
   const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
     setError(null)
     setSubmitted(false)
+    setIsSubmitting(false)
 
     const trimmedName = name.trim()
     if (!trimmedName) {
@@ -34,10 +37,27 @@ const Contact = () => {
       }
     }
 
-    // There is no backend yet; this is intentionally local.
-    // In the future, this can post to a lightweight contact endpoint.
-    setSubmitted(true)
-    setMessage("")
+    setIsSubmitting(true)
+
+    try {
+      await sendEmail({
+        form_type: "Contact",
+        user_name: name.trim(),
+        user_email: email.trim() || "Not provided",
+        message: message.trim(),
+      })
+
+      setSubmitted(true)
+      setName("")
+      setEmail("")
+      setMessage("")
+    } catch {
+      setError(
+        "Something went wrong while sending your message. Please try again in a moment or use an alternative channel below."
+      )
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -230,8 +250,8 @@ const Contact = () => {
                         ✓
                       </div>
                       <p>
-                        Thanks for reaching out. Your note stays local for now; as the project grows,
-                        a simple way to send messages to a backend will be added.
+                        Thanks for reaching out. Your message has been sent and will only be used to
+                        respond to you or improve Simple Web Tools.
                       </p>
                     </div>
                   )}
@@ -239,9 +259,10 @@ const Contact = () => {
                   <div className="pt-2">
                     <button
                       type="submit"
+                      disabled={isSubmitting}
                       className="inline-flex w-full items-center justify-center rounded-xl bg-[#088108] px-5 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-[#066306] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 transition-all duration-200"
                     >
-                      Send message
+                      {isSubmitting ? "Sending…" : "Send message"}
                     </button>
                   </div>
                 </form>
