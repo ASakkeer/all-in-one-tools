@@ -20,12 +20,12 @@ const Privacy = () => {
             </Link>
           </div>
 
-        {/* Header card */}
-        <section className="rounded-2xl border border-slate-200 bg-white px-5 py-6 sm:px-7 sm:py-8 shadow-sm">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-            <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700">
+          {/* Header card */}
+          <section className="rounded-2xl border border-slate-200 bg-white px-5 py-6 sm:px-7 sm:py-8 shadow-sm">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+              <div className="inline-flex h-16 w-16 items-center justify-center text-emerald-600">
               <svg
-                className="h-7 w-7"
+                  className="h-12 w-12"
                 viewBox="0 0 24 24"
                 fill="none"
                 aria-hidden="true"
@@ -45,25 +45,25 @@ const Privacy = () => {
                   strokeLinejoin="round"
                 />
               </svg>
+              </div>
+              <div className="space-y-2">
+                <h1 className="text-2xl sm:text-3xl font-semibold text-slate-900 tracking-tight">
+                  Your Privacy Comes First
+                </h1>
+                <p className="text-sm sm:text-base text-slate-600 max-w-xl">
+                  Simple Web Tools runs entirely in your browser. The tools are built to be
+                  privacy‑first by design, so your data stays on your device.
+                </p>
+              </div>
             </div>
-            <div className="space-y-2">
-              <h1 className="text-2xl sm:text-3xl font-semibold text-slate-900">
-                Your Privacy Comes First
-              </h1>
-              <p className="text-sm sm:text-base text-slate-600">
-                Simple Web Tools runs entirely in your browser. The tools are built to be
-                privacy‑first by design, so your data stays on your device.
-              </p>
-            </div>
-          </div>
-        </section>
+          </section>
 
-        {/* Data handling */}
-        <section className="rounded-2xl border border-slate-200 bg-white px-5 py-6 sm:px-7 sm:py-7 shadow-sm">
-          <header className="mb-4 flex items-start gap-3">
-            <div className="mt-0.5 inline-flex h-8 w-8 items-center justify-center rounded-xl bg-slate-100 text-slate-700">
+          {/* Data handling */}
+          <section className="rounded-2xl border border-slate-200 bg-white px-5 py-6 sm:px-7 sm:py-7 shadow-sm">
+            <header className="mb-5 flex items-start gap-4">
+              <div className="mt-0.5 inline-flex h-14 w-14 items-center justify-center text-emerald-600">
               <svg
-                className="h-4 w-4"
+                  className="h-10 w-10"
                 viewBox="0 0 24 24"
                 fill="none"
                 aria-hidden="true"
@@ -84,38 +84,38 @@ const Privacy = () => {
                   strokeLinecap="round"
                 />
               </svg>
-            </div>
-            <div>
-              <h2 className="text-lg sm:text-xl font-semibold text-slate-900">
-                Data handling: your device, your data
-              </h2>
-              <p className="mt-2 text-sm sm:text-base text-slate-600">
-                Simple Web Tools does not collect, store, or process your data on any server.
-                All formatting, transformations, and analysis happen directly inside your browser.
+              </div>
+              <div>
+                <h2 className="text-lg sm:text-xl font-semibold text-slate-900">
+                  Data handling: your device, your data
+                </h2>
+                <p className="mt-2 text-sm sm:text-base text-slate-600 max-w-2xl">
+                  Simple Web Tools does not collect, store, or process your data on any server.
+                  All formatting, transformations, and analysis happen directly inside your browser.
+                </p>
+              </div>
+            </header>
+            <div className="mt-4 space-y-3 text-sm sm:text-base text-slate-600">
+              <p className="pt-1">
+                When you use tools like the JSON Formatter, Word Counter, or Diff Checker, your
+                input is handled only by code running locally in your browser tab.
+              </p>
+              <p className="pt-1">
+                Your data is not sent to a backend, stored in a database, or logged to any server.
+                There are no hidden uploads or background requests that ship your text elsewhere.
+              </p>
+              <p className="pt-1">
+                Close the tab or refresh the page, and the in‑memory data used by the tools is gone.
               </p>
             </div>
-          </header>
-          <div className="space-y-2 text-sm sm:text-base text-slate-600">
-            <p>
-              When you use tools like the JSON Formatter, Word Counter, or Diff Checker, your input
-              is handled only by code running locally in your browser tab.
-            </p>
-            <p>
-              Your data is not sent to a backend, stored in a database, or logged to any server.
-              There are no hidden uploads or background requests that ship your text elsewhere.
-            </p>
-            <p>
-              Close the tab or refresh the page, and the in‑memory data used by the tools is gone.
-            </p>
-          </div>
-        </section>
+          </section>
 
-        {/* Client-side processing */}
-        <section className="rounded-2xl border border-slate-200 bg-white px-5 py-6 sm:px-7 sm:py-7 shadow-sm">
-          <header className="mb-4 flex items-start gap-3">
-            <div className="mt-0.5 inline-flex h-8 w-8 items-center justify-center rounded-xl bg-slate-100 text-slate-700">
+          {/* Client-side processing */}
+          <section className="rounded-2xl border border-slate-200 bg-white px-5 py-6 sm:px-7 sm:py-7 shadow-sm">
+            <header className="mb-5 flex items-start gap-4">
+              <div className="mt-0.5 inline-flex h-14 w-14 items-center justify-center text-emerald-600">
               <svg
-                className="h-4 w-4"
+                  className="h-10 w-10"
                 viewBox="0 0 24 24"
                 fill="none"
                 aria-hidden="true"
@@ -141,28 +141,28 @@ const Privacy = () => {
                   strokeLinecap="round"
                 />
               </svg>
-            </div>
-            <div>
-              <h2 className="text-lg sm:text-xl font-semibold text-slate-900">
-                Client‑side processing, explained simply
-              </h2>
-              <p className="mt-2 text-sm sm:text-base text-slate-600">
-                Modern browsers are powerful enough to do this work locally. That&apos;s why these
-                tools run without accounts, logins, or background services.
+              </div>
+              <div>
+                <h2 className="text-lg sm:text-xl font-semibold text-slate-900">
+                  Client‑side processing, explained simply
+                </h2>
+                <p className="mt-2 text-sm sm:text-base text-slate-600 max-w-2xl">
+                  Modern browsers are powerful enough to do this work locally. That&apos;s why these
+                  tools run without accounts, logins, or background services.
+                </p>
+              </div>
+            </header>
+            <div className="mt-4 space-y-3 text-sm sm:text-base text-slate-600">
+              <p className="pt-1">
+                When you paste or type something into a tool, the browser runs small, focused
+                functions to format, count, or compare your text. The work happens on your machine,
+                not on a server you never see.
+              </p>
+              <p className="pt-1">
+                Because the information never leaves your device, there&apos;s no server‑side copy
+                that could be exposed, leaked, or misused.
               </p>
             </div>
-          </header>
-          <div className="space-y-3 text-sm sm:text-base text-slate-600">
-            <p>
-              When you paste or type something into a tool, the browser runs small, focused
-              functions to format, count, or compare your text. The work happens on your machine,
-              not on a server you never see.
-            </p>
-            <p>
-              Because the information never leaves your device, there&apos;s no server‑side copy
-              that could be exposed, leaked, or misused.
-            </p>
-          </div>
           <div className="mt-5 rounded-xl border border-dashed border-slate-200 bg-slate-50/70 px-4 py-4 text-xs sm:text-sm text-slate-600">
             <p className="mb-2 font-medium text-slate-700">How each tool works in practice</p>
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -198,12 +198,12 @@ const Privacy = () => {
           </div>
         </section>
 
-        {/* Storage & persistence */}
-        <section className="rounded-2xl border border-slate-200 bg-white px-5 py-6 sm:px-7 sm:py-7 shadow-sm">
-          <header className="mb-4 flex items-start gap-3">
-            <div className="mt-0.5 inline-flex h-8 w-8 items-center justify-center rounded-xl bg-slate-100 text-slate-700">
+          {/* Storage & persistence */}
+          <section className="rounded-2xl border border-slate-200 bg-white px-5 py-6 sm:px-7 sm:py-7 shadow-sm">
+            <header className="mb-5 flex items-start gap-4">
+              <div className="mt-0.5 inline-flex h-14 w-14 items-center justify-center text-emerald-600">
               <svg
-                className="h-4 w-4"
+                  className="h-10 w-10"
                 viewBox="0 0 24 24"
                 fill="none"
                 aria-hidden="true"
@@ -244,35 +244,35 @@ const Privacy = () => {
                   Local
                 </text>
               </svg>
-            </div>
-            <div>
-              <h2 className="text-lg sm:text-xl font-semibold text-slate-900">
-                Storage & persistence (local only)
-              </h2>
-              <p className="mt-2 text-sm sm:text-base text-slate-600">
-                The app may use your browser&apos;s local storage to remember a few details that
-                make the tools more pleasant to use.
+              </div>
+              <div>
+                <h2 className="text-lg sm:text-xl font-semibold text-slate-900">
+                  Storage & persistence (local only)
+                </h2>
+                <p className="mt-2 text-sm sm:text-base text-slate-600 max-w-2xl">
+                  The app may use your browser&apos;s local storage to remember a few details that
+                  make the tools more pleasant to use.
+                </p>
+              </div>
+            </header>
+            <div className="mt-4 space-y-3 text-sm sm:text-base text-slate-600">
+              <p className="pt-1">
+                This can include things like recent input, simple preferences, or which tool you
+                used last. All of this lives in your browser, on your device.
+              </p>
+              <p className="pt-1">
+                Nothing in local storage is sent back to a server by Simple Web Tools. You are
+                always free to clear this data at any time using your browser settings.
               </p>
             </div>
-          </header>
-          <div className="space-y-2 text-sm sm:text-base text-slate-600">
-            <p>
-              This can include things like recent input, simple preferences, or which tool you used
-              last. All of this lives in your browser, on your device.
-            </p>
-            <p>
-              Nothing in local storage is sent back to a server by Simple Web Tools. You are always
-              free to clear this data at any time using your browser settings.
-            </p>
-          </div>
-        </section>
+          </section>
 
-        {/* Transparency & tracking */}
-        <section className="rounded-2xl border border-slate-200 bg-white px-5 py-6 sm:px-7 sm:py-7 shadow-sm">
-          <header className="mb-4 flex items-start gap-3">
-            <div className="mt-0.5 inline-flex h-8 w-8 items-center justify-center rounded-xl bg-slate-100 text-slate-700">
+          {/* Transparency & tracking */}
+          <section className="rounded-2xl border border-slate-200 bg-white px-5 py-6 sm:px-7 sm:py-7 shadow-sm">
+            <header className="mb-5 flex items-start gap-4">
+              <div className="mt-0.5 inline-flex h-14 w-14 items-center justify-center text-emerald-600">
               <svg
-                className="h-4 w-4"
+                  className="h-10 w-10"
                 viewBox="0 0 24 24"
                 fill="none"
                 aria-hidden="true"
@@ -291,33 +291,33 @@ const Privacy = () => {
                   strokeLinecap="round"
                 />
               </svg>
-            </div>
-            <div>
-              <h2 className="text-lg sm:text-xl font-semibold text-slate-900">
-                Transparency: analytics & tracking
-              </h2>
-              <p className="mt-2 text-sm sm:text-base text-slate-600">
-                Simple Web Tools is intentionally quiet. There are no invasive trackers, no ad
-                networks, and no behavioral profiles.
+              </div>
+              <div>
+                <h2 className="text-lg sm:text-xl font-semibold text-slate-900">
+                  Transparency: analytics & tracking
+                </h2>
+                <p className="mt-2 text-sm sm:text-base text-slate-600 max-w-2xl">
+                  Simple Web Tools is intentionally quiet. There are no invasive trackers, no ad
+                  networks, and no behavioral profiles.
+                </p>
+              </div>
+            </header>
+            <div className="mt-4 space-y-3 text-sm sm:text-base text-slate-600">
+              <p className="pt-1">There are no ads, no accounts, and no identity‑based tracking.</p>
+              <p className="pt-1">
+                If lightweight, anonymous usage metrics are ever added, they will be non‑identifying
+                and used only to understand which tools are helpful and where to improve. They will
+                not be tied to names, emails, or logged‑in identities.
               </p>
             </div>
-          </header>
-          <div className="space-y-2 text-sm sm:text-base text-slate-600">
-            <p>There are no ads, no accounts, and no identity‑based tracking.</p>
-            <p>
-              If lightweight, anonymous usage metrics are ever added, they will be non‑identifying
-              and used only to understand which tools are helpful and where to improve. They will
-              not be tied to names, emails, or logged‑in identities.
-            </p>
-          </div>
-        </section>
+          </section>
 
-        {/* Third‑party services */}
-        <section className="rounded-2xl border border-slate-200 bg-white px-5 py-6 sm:px-7 sm:py-7 shadow-sm">
-          <header className="mb-4 flex items-start gap-3">
-            <div className="mt-0.5 inline-flex h-8 w-8 items-center justify-center rounded-xl bg-slate-100 text-slate-700">
+          {/* Third‑party services */}
+          <section className="rounded-2xl border border-slate-200 bg-white px-5 py-6 sm:px-7 sm:py-7 shadow-sm">
+            <header className="mb-5 flex items-start gap-4">
+              <div className="mt-0.5 inline-flex h-14 w-14 items-center justify-center text-emerald-600">
               <svg
-                className="h-4 w-4"
+                  className="h-10 w-10"
                 viewBox="0 0 24 24"
                 fill="none"
                 aria-hidden="true"
@@ -346,35 +346,36 @@ const Privacy = () => {
                   strokeWidth="1.4"
                 />
               </svg>
-            </div>
-            <div>
-              <h2 className="text-lg sm:text-xl font-semibold text-slate-900">
-                Third‑party services & payments
-              </h2>
-              <p className="mt-2 text-sm sm:text-base text-slate-600">
-                Some links, like &quot;Buy me a coffee&quot;, take you to external services that have
-                their own privacy policies.
+              </div>
+              <div>
+                <h2 className="text-lg sm:text-xl font-semibold text-slate-900">
+                  Third‑party services & payments
+                </h2>
+                <p className="mt-2 text-sm sm:text-base text-slate-600 max-w-2xl">
+                  Some links, like &quot;Buy me a coffee&quot;, take you to external services that
+                  have their own privacy policies.
+                </p>
+              </div>
+            </header>
+            <div className="mt-4 space-y-3 text-sm sm:text-base text-slate-600">
+              <p className="pt-1">
+                When you click a support link, you leave Simple Web Tools and move to a separate
+                platform. That platform is responsible for handling any payments or personal
+                details.
+              </p>
+              <p className="pt-1">
+                Simple Web Tools does not process payments and does not store your payment
+                information or billing details.
               </p>
             </div>
-          </header>
-          <div className="space-y-2 text-sm sm:text-base text-slate-600">
-            <p>
-              When you click a support link, you leave Simple Web Tools and move to a separate
-              platform. That platform is responsible for handling any payments or personal details.
-            </p>
-            <p>
-              Simple Web Tools does not process payments and does not store your payment information
-              or billing details.
-            </p>
-          </div>
-        </section>
+          </section>
 
-        {/* Security */}
-        <section className="rounded-2xl border border-slate-200 bg-white px-5 py-6 sm:px-7 sm:py-7 shadow-sm">
-          <header className="mb-4 flex items-start gap-3">
-            <div className="mt-0.5 inline-flex h-8 w-8 items-center justify-center rounded-xl bg-slate-100 text-slate-700">
+          {/* Security */}
+          <section className="rounded-2xl border border-slate-200 bg-white px-5 py-6 sm:px-7 sm:py-7 shadow-sm">
+            <header className="mb-5 flex items-start gap-4">
+              <div className="mt-0.5 inline-flex h-14 w-14 items-center justify-center text-emerald-600">
               <svg
-                className="h-4 w-4"
+                  className="h-10 w-10"
                 viewBox="0 0 24 24"
                 fill="none"
                 aria-hidden="true"
@@ -395,36 +396,36 @@ const Privacy = () => {
                   strokeWidth="1.4"
                 />
               </svg>
-            </div>
-            <div>
-              <h2 className="text-lg sm:text-xl font-semibold text-slate-900">
-                Security & browser safeguards
-              </h2>
-              <p className="mt-2 text-sm sm:text-base text-slate-600">
-                The app leans on modern browser security features and strict content security
-                practices to keep things safe by default.
+              </div>
+              <div>
+                <h2 className="text-lg sm:text-xl font-semibold text-slate-900">
+                  Security & browser safeguards
+                </h2>
+                <p className="mt-2 text-sm sm:text-base text-slate-600 max-w-2xl">
+                  The app leans on modern browser security features and strict content security
+                  practices to keep things safe by default.
+                </p>
+              </div>
+            </header>
+            <div className="mt-4 space-y-3 text-sm sm:text-base text-slate-600">
+              <p className="pt-1">
+                Because tools run locally, there is less attack surface than a traditional
+                server‑based app. There is no central database of user content to protect, and no
+                backend endpoints that accept your pasted data.
+              </p>
+              <p className="pt-1">
+                The app is delivered as static assets, and the browser&apos;s built‑in safeguards
+                help prevent unsafe scripts and unauthorized access.
               </p>
             </div>
-          </header>
-          <div className="space-y-2 text-sm sm:text-base text-slate-600">
-            <p>
-              Because tools run locally, there is less attack surface than a traditional
-              server‑based app. There is no central database of user content to protect, and no
-              backend endpoints that accept your pasted data.
-            </p>
-            <p>
-              The app is delivered as static assets, and the browser&apos;s built‑in safeguards help
-              prevent unsafe scripts and unauthorized access.
-            </p>
-          </div>
-        </section>
+          </section>
 
-        {/* User control */}
-        <section className="rounded-2xl border border-slate-200 bg-white px-5 py-6 sm:px-7 sm:py-7 shadow-sm">
-          <header className="mb-4 flex items-start gap-3">
-            <div className="mt-0.5 inline-flex h-8 w-8 items-center justify-center rounded-xl bg-slate-100 text-slate-700">
+          {/* User control */}
+          <section className="rounded-2xl border border-slate-200 bg-white px-5 py-6 sm:px-7 sm:py-7 shadow-sm">
+            <header className="mb-5 flex items-start gap-4">
+              <div className="mt-0.5 inline-flex h-14 w-14 items-center justify-center text-emerald-600">
               <svg
-                className="h-4 w-4"
+                  className="h-10 w-10"
                 viewBox="0 0 24 24"
                 fill="none"
                 aria-hidden="true"
@@ -449,28 +450,28 @@ const Privacy = () => {
                   strokeWidth="1.4"
                 />
               </svg>
-            </div>
-            <div>
-              <h2 className="text-lg sm:text-xl font-semibold text-slate-900">
-                Your control, at all times
-              </h2>
-              <p className="mt-2 text-sm sm:text-base text-slate-600">
-                You decide what lives in your browser and for how long. There are no accounts to
-                manage, reset, or delete.
+              </div>
+              <div>
+                <h2 className="text-lg sm:text-xl font-semibold text-slate-900">
+                  Your control, at all times
+                </h2>
+                <p className="mt-2 text-sm sm:text-base text-slate-600 max-w-2xl">
+                  You decide what lives in your browser and for how long. There are no accounts to
+                  manage, reset, or delete.
+                </p>
+              </div>
+            </header>
+            <div className="mt-4 space-y-3 text-sm sm:text-base text-slate-600">
+              <p className="pt-1">
+                You can refresh the page, close the tab, or clear your browser storage whenever you
+                like. Doing so removes any locally stored data used by these tools.
+              </p>
+              <p className="pt-1">
+                Since there is no central user account, there is nothing for us to deactivate on
+                your behalf. Control sits with you, on your device.
               </p>
             </div>
-          </header>
-          <div className="space-y-2 text-sm sm:text-base text-slate-600">
-            <p>
-              You can refresh the page, close the tab, or clear your browser storage whenever you
-              like. Doing so removes any locally stored data used by these tools.
-            </p>
-            <p>
-              Since there is no central user account, there is nothing for us to deactivate on your
-              behalf. Control sits with you, on your device.
-            </p>
-          </div>
-        </section>
+          </section>
 
           {/* Closing summary */}
           <section className="mt-2 rounded-2xl border border-slate-200 bg-white px-5 py-6 sm:px-7 sm:py-7 shadow-sm">
