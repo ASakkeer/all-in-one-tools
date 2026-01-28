@@ -13,6 +13,7 @@ All-in-one tools application built with React, TypeScript, Vite, Tailwind CSS, R
     - `/tools/:toolId` → `Tool` (dynamic tool host)
     - `/support` → `Support` (quiet placeholder for “Buy me a coffee”)
     - `/privacy` → `Privacy` (calm, human privacy page)
+    - `/contact` → `Contact` (calm, minimal contact page for feedback and questions)
 - **State Management**
   - `src/app/store.ts` – `configureStore` with an (currently) empty `reducer` map; prepared for future slices.
   - `src/app/providers.tsx` – `Providers` wraps children in Redux `<Provider store={store}>` (not yet wired into `main.tsx` but designed as the global state injection point).
@@ -23,6 +24,7 @@ All-in-one tools application built with React, TypeScript, Vite, Tailwind CSS, R
   - `src/pages/Tool` – generic tool host that switches on `toolId` and renders the active tool inside a shared page shell (back navigation, compact header, privacy banner, and full-height workspace).
   - `src/pages/Support` – simple, text-first placeholder for future “Buy me a coffee” integration.
   - `src/pages/Privacy` – calm, human privacy page that explains local-only processing, storage, tracking posture, and user control without legalese.
+  - `src/pages/Contact` – calm, minimal contact page with a local-only form, guidance list, and alternative contact channels that align with the privacy-first philosophy.
 - **Tools**
   - `src/tools/` – each tool gets its own folder with `index.tsx`, `hooks/`, `components/`, `utils/`.
   - Current concrete implementations:
@@ -80,6 +82,7 @@ src/
 - `/tools/:toolId` - Dynamic tool page
 - `/support` - Support page for “Buy me a coffee” flow (placeholder)
 - `/privacy` - Privacy page that documents local-only processing, storage behavior, and tracking/analytics choices
+- `/contact` - Contact page with a simple form, guidance, and optional alternative channels
 
 ## Development Status
 - ✅ Project structure created
