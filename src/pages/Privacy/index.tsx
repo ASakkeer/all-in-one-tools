@@ -1,5 +1,6 @@
 // Privacy page for Simple Web Tools - calm, human, privacy-first explanation
 import { Link } from "react-router-dom"
+import logoBlack from "@/assets/images/logo-black.png"
 
 const Privacy = () => {
   return (
@@ -493,13 +494,21 @@ const Privacy = () => {
       {/* Footer (matches Home footer) */}
       <footer className="mt-16 border-t border-slate-200 bg-slate-50/90">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="text-center sm:text-left">
-            <p className="text-xs text-slate-500">
-              Simple Web Tools &middot; Small, focused utilities for everyday work.
-            </p>
-            <p className="mt-1 text-[11px] text-slate-500">
-              © 2026 Sakkeer A. All rights reserved.
-            </p>
+          <div className="flex items-center gap-3 text-center sm:text-left">
+            <img
+              src={logoBlack}
+              alt="Simple Web Tools logo"
+              className="h-8 w-8 sm:h-9 sm:w-9 object-contain"
+              loading="lazy"
+            />
+            <div>
+              <p className="text-xs text-slate-500">
+                Simple Web Tools &middot; Small, focused utilities for everyday work.
+              </p>
+              <p className="mt-1 text-[11px] text-slate-500">
+                © 2026 Sakkeer A. All rights reserved.
+              </p>
+            </div>
           </div>
           <nav className="flex flex-wrap items-center gap-4 text-xs text-slate-600">
             <a href="/" className="hover:text-slate-900">
