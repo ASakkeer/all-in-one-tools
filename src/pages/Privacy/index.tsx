@@ -4,10 +4,10 @@ import { Link } from "react-router-dom"
 const Privacy = () => {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
-      <main className="flex-1 px-4 py-12 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto space-y-8">
-          {/* Back to home */}
-          <div className="mb-4">
+      <main className="flex-1">
+        {/* Sticky nav with back button */}
+        <div className="sticky top-0 z-30 -mx-4 sm:-mx-6 lg:-mx-8 border-b border-slate-200 bg-slate-50/95 backdrop-blur px-4 sm:px-6 lg:px-8 py-3">
+          <div className="max-w-4xl mx-auto">
             <Link
               to="/"
               className="inline-flex items-center gap-1.5 rounded-full border border-transparent px-3 py-1.5 text-sm text-slate-600 transition-colors duration-150 hover:bg-emerald-50 hover:text-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50"
@@ -19,6 +19,10 @@ const Privacy = () => {
               <span className="font-medium">Home</span>
             </Link>
           </div>
+        </div>
+
+        <div className="px-4 pb-12 pt-8 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto space-y-8">
 
           {/* Header card */}
           <section className="rounded-2xl border border-slate-200 bg-white px-5 py-6 sm:px-7 sm:py-8 shadow-sm">
@@ -482,6 +486,7 @@ const Privacy = () => {
               contact page.
             </p>
           </section>
+          </div>
         </div>
       </main>
 

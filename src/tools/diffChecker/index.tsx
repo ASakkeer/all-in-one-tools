@@ -53,9 +53,13 @@ export const DiffChecker = () => {
   }
 
   const handleScrollToDiff = () => {
-    if (diffSectionRef.current) {
-      diffSectionRef.current.scrollIntoView({ behavior: "smooth", block: "start" })
-    }
+    if (!diffSectionRef.current) return
+
+    const headerOffset = 96 // approximate sticky header height
+    const rect = diffSectionRef.current.getBoundingClientRect()
+    const scrollTop = window.scrollY + rect.top - headerOffset
+
+    window.scrollTo({ top: Math.max(scrollTop, 0), behavior: "smooth" })
   }
 
   return (
@@ -174,10 +178,10 @@ export const DiffChecker = () => {
             >
               Original text
             </label>
-            <div className="flex flex-1 rounded-lg border border-gray-200 bg-gray-50 overflow-hidden">
+            <div className="flex flex-1 max-h-[27rem] sm:max-h-[30rem] rounded-lg border border-gray-200 bg-gray-50 overflow-hidden">
               <div
                 ref={leftGutterRef}
-                className="hidden h-full select-none border-r border-gray-200 bg-gray-100 px-2 py-3 text-xs text-gray-400 sm:block sm:overflow-auto"
+                className="hidden h-full select-none border-r border-gray-200 bg-gray-100 px-2 py-3 text-xs text-gray-400 sm:block sm:overflow-hidden"
                 aria-hidden="true"
               >
                 {leftLines.map((_, index) => (
@@ -205,10 +209,10 @@ export const DiffChecker = () => {
             >
               Modified text
             </label>
-            <div className="flex flex-1 rounded-lg border border-gray-200 bg-gray-50 overflow-hidden">
+            <div className="flex flex-1 max-h-[26rem] sm:max-h-[30rem] rounded-lg border border-gray-200 bg-gray-50 overflow-hidden">
               <div
                 ref={rightGutterRef}
-                className="hidden h-full select-none border-r border-gray-200 bg-gray-100 px-2 py-3 text-xs text-gray-400 sm:block sm:overflow-auto"
+                className="hidden h-full select-none border-r border-gray-200 bg-gray-100 px-2 py-3 text-xs text-gray-400 sm:block sm:overflow-hidden"
                 aria-hidden="true"
               >
                 {rightLines.map((_, index) => (
