@@ -1,7 +1,7 @@
 // Diff Checker tool - Side-by-side and inline text comparison with live diff
 import { useMemo, useRef } from "react"
 import { useDiffChecker } from "./hooks/useDiffChecker"
-import { DiffOptions } from "./components/DiffOptions"
+import { DiffOptionsControls } from "./components/DiffOptions"
 import { DiffSummaryBar } from "./components/DiffSummary"
 import { DiffView } from "./components/DiffView"
 import type { DiffViewMode } from "./hooks/useDiffChecker"
@@ -67,7 +67,7 @@ export const DiffChecker = () => {
       {/* Diff controls bar - options, view mode, summary */}
       <div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-50 p-3 sm:flex-row sm:items-center sm:justify-between">
         {/* Group A: Ignore options */}
-        <DiffOptions
+        <DiffOptionsControls
           options={options}
           onToggleOption={toggleOption}
           showUnchanged={showUnchanged}
