@@ -461,16 +461,17 @@ const ToolsList: React.FC<ToolsListProps> = ({ searchTerm }) => {
                       </div>
                     </div>
                   </div>
+                  <div className="my-2 h-px w-full bg-slate-200" />
                   <div className="mt-auto flex w-full items-center justify-between gap-3">
                     <div className="flex flex-wrap gap-1.5">
-                    {tool.tags.map((tag) => (
-                      <span
-                        key={tag}
+                      {tool.tags.map((tag) => (
+                        <span
+                          key={tag}
                           className="inline-flex items-center rounded-full bg-slate-50 px-2 py-0.5 text-[11px] font-medium text-slate-700"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                        >
+                          {tag}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 </button>
