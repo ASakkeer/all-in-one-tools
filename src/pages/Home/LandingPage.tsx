@@ -309,13 +309,18 @@ type ToolsSearchProps = {
 }
 
 const ToolsSearch: React.FC<ToolsSearchProps> = ({ value, onChange }) => {
+  const inputRef = useRef<HTMLInputElement | null>(null)
+
   return (
     <SectionFade className="max-w-4xl mx-auto">
-      <div className="bg-white/95 backdrop-blur-sm border border-slate-200 rounded-2xl px-4 py-3 sm:px-5 sm:py-4 shadow-md">
+      <div
+        className="bg-white/95 backdrop-blur-sm border border-slate-200 rounded-2xl px-4 py-4 sm:px-6 sm:py-5 shadow-md cursor-text"
+        onClick={() => inputRef.current?.focus()}
+      >
         <div className="relative">
-          <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-slate-400">
+          <span className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-slate-400">
             <svg
-              className="h-4 w-4"
+              className="h-8 w-8"
               viewBox="0 0 20 20"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -328,12 +333,27 @@ const ToolsSearch: React.FC<ToolsSearchProps> = ({ value, onChange }) => {
           </span>
           <input
             id="tools-search"
-            type="search"
+            type="text"
+            ref={inputRef}
             value={value}
             onChange={(event) => onChange(event.target.value)}
             placeholder="Search tools by name, keyword, or format…"
-            className="block w-full rounded-full border border-slate-200 bg-slate-50/90 pl-9 pr-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 shadow-sm focus:border-sky-300 focus:outline-none focus:ring-2 focus:ring-sky-300"
+            className="block w-full rounded-full border border-slate-200 bg-slate-50/90 pl-14 pr-16 py-3.5 text-lg text-slate-900 placeholder:text-slate-400 shadow-sm focus:border-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-300"
+            autoComplete="off"
           />
+          {value && (
+            <button
+              type="button"
+              onClick={(event) => {
+                event.stopPropagation()
+                onChange("")
+                inputRef.current?.focus()
+              }}
+              className="absolute inset-y-0 right-3 flex items-center px-3 text-sm font-medium text-slate-500 hover:text-slate-800 transition-colors"
+            >
+              Clear
+            </button>
+          )}
         </div>
       </div>
     </SectionFade>
@@ -376,7 +396,7 @@ const ToolsList: React.FC<ToolsListProps> = ({ searchTerm }) => {
   }
 
   return (
-    <SectionFade className="max-w-6xl mx-auto space-y-10">
+    <SectionFade className="max-w-5xl mx-auto space-y-10">
       {filteredCategories.length === 0 && (
         <div className="rounded-lg border border-dashed border-slate-200 bg-white/80 px-4 py-6 text-center text-sm text-slate-500">
           No tools found for this search yet. Try a different keyword or check back soon.
@@ -402,7 +422,7 @@ const ToolsList: React.FC<ToolsListProps> = ({ searchTerm }) => {
               {category.tools.length} {category.tools.length === 1 ? "tool" : "tools"}
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {category.tools.map((tool) => {
               const isActive = tool.status === "active"
               return (
@@ -412,31 +432,34 @@ const ToolsList: React.FC<ToolsListProps> = ({ searchTerm }) => {
                   onClick={() => handleToolClick(tool)}
                   disabled={!isActive}
                   className={[
-                    "group flex h-full flex-col items-start rounded-xl border px-4 py-4 text-left transition-all duration-300",
-                    "bg-white/95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-200",
+                    "group relative flex h-full flex-col rounded-2xl border bg-white px-4 py-4 text-left shadow-sm transition-transform transition-shadow duration-200 ease-out focus-visible:outline-none",
                     isActive
-                      ? "shadow-sm hover:-translate-y-1 hover:shadow-lg hover:border-slate-300 border-slate-200"
-                      : "border-dashed border-slate-200 opacity-70 cursor-not-allowed",
+                      ? "cursor-pointer border-slate-200 border-b-[3px] border-b-emerald-500 hover:-translate-y-1 hover:shadow-md"
+                      : "cursor-not-allowed border-slate-200/80 border-b-[3px] border-b-slate-300 opacity-70",
                   ].join(" ")}
                 >
-                  <div className="flex items-center justify-between w-full mb-2 gap-2">
-                    <p className="text-sm font-medium text-slate-900">{tool.name}</p>
-                    {!isActive && (
-                      <span className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5 text-[11px] font-medium uppercase tracking-wide text-slate-500">
-                        Coming soon
-                      </span>
-                    )}
+                  <div className="flex items-start justify-between w-full gap-3 mb-3">
+                    <div className="flex items-start gap-3">
+                      <div className="mt-0.5 flex h-8 w-8 items-center justify-center rounded-xl bg-slate-100 text-slate-700 text-xs font-semibold">
+                        {tool.name.charAt(0)}
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-slate-900">{tool.name}</p>
+                        <p className="mt-1 text-xs text-slate-600">{tool.description}</p>
+                      </div>
+                    </div>
                   </div>
-                  <p className="mb-3 text-xs text-slate-600">{tool.description}</p>
-                  <div className="mt-auto flex flex-wrap gap-1.5">
+                  <div className="mt-auto flex w-full items-center justify-between gap-3">
+                    <div className="flex flex-wrap gap-1.5">
                     {tool.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="inline-flex items-center rounded-full bg-sky-50/80 px-2 py-0.5 text-[11px] font-medium text-sky-700"
+                          className="inline-flex items-center rounded-full bg-slate-50 px-2 py-0.5 text-[11px] font-medium text-slate-700"
                       >
                         {tag}
                       </span>
                     ))}
+                    </div>
                   </div>
                 </button>
               )
@@ -821,7 +844,7 @@ const LandingPage: React.FC = () => {
         <section
           id="tools"
           ref={toolsSectionRef}
-          className="max-w-6xl mx-auto -mt-10 sm:-mt-14 space-y-8 sm:space-y-10"
+          className="relative z-20 max-w-6xl mx-auto -mt-10 sm:-mt-14 space-y-8 sm:space-y-10"
         >
           <ToolsSearch value={searchTerm} onChange={setSearchTerm} />
           <ToolsList searchTerm={searchTerm} />
