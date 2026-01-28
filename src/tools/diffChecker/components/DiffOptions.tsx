@@ -9,7 +9,7 @@ interface DiffOptionsProps {
   onToggleShowUnchanged: () => void
 }
 
-export const DiffOptions: FC<DiffOptionsProps> = ({
+export const DiffOptionsControls: FC<DiffOptionsProps> = ({
   options,
   onToggleOption,
   showUnchanged,

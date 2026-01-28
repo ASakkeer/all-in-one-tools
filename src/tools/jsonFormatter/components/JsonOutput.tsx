@@ -26,7 +26,6 @@ export const JsonOutput = ({ output, outputRef }: JsonOutputProps) => {
       glyphMargin: false,
       folding: true,
       lineDecorationsWidth: 0,
-      lineNumbersWidth: 50,
     })
 
     // Set JSON language for syntax highlighting

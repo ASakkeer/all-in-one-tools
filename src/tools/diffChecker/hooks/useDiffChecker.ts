@@ -120,7 +120,6 @@ export const useDiffChecker = () => {
     const block = blocks[index]
     if (!block) return
 
-    const leftLines = leftText.split(/\r?\n/)
     const rightLines = rightText.split(/\r?\n/)
     const leftStart = block.leftStartLine
     const rightStart = block.rightStartLine
@@ -164,7 +163,6 @@ export const useDiffChecker = () => {
     if (!block) return
 
     const leftLines = leftText.split(/\r?\n/)
-    const rightLines = rightText.split(/\r?\n/)
     const leftStart = block.leftStartLine
     const rightStart = block.rightStartLine
 

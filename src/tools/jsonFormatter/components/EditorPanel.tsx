@@ -1,6 +1,6 @@
 // Editor Panel component - Large editor with integrated toolbar
 // Error handling: errors appear inline below editor, never replace the editor
-import { ReactNode } from "react"
+import type { ReactNode } from "react"
 
 interface EditorPanelProps {
   title: string
@@ -11,7 +11,7 @@ interface EditorPanelProps {
     active?: boolean
   }>
   actionIcons?: ReactNode
-  children: React.ReactNode
+  children: ReactNode
   error?: string | null
   errorLine?: number | null
   errorColumn?: number | null
