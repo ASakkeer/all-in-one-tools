@@ -30,6 +30,10 @@ type ToolCategory = {
   tools: ToolDefinition[]
 }
 
+const TOOL_STORAGE_KEYS: Record<string, string[]> = {
+  "json-formatter": ["json-formatter-input"],
+}
+
 type SectionFadeProps = {
   children: ReactNode
   className?: string
@@ -392,6 +396,14 @@ const ToolsList: React.FC<ToolsListProps> = ({ searchTerm }) => {
 
   const handleToolClick = (tool: ToolDefinition) => {
     if (tool.status !== "active") return
+
+    if (typeof window !== "undefined") {
+      const keys = TOOL_STORAGE_KEYS[tool.id] ?? []
+      keys.forEach((key) => {
+        window.localStorage.removeItem(key)
+      })
+    }
+
     navigate(`/tools/${tool.id}`)
   }
 
@@ -799,7 +811,7 @@ const Footer: React.FC = () => {
             Contact
           </a>
           <a
-            href="https://github.com"
+            href="https://github.com/ASakkeer"
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-1 hover:text-slate-900"
@@ -816,6 +828,22 @@ const Footer: React.FC = () => {
               />
             </svg>
             <span>GitHub</span>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/sakkeer5297"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-slate-900"
+          >
+            LinkedIn
+          </a>
+          <a
+            href="https://work.sakkeer.com/"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-slate-900"
+          >
+            Portfolio
           </a>
         </nav>
       </div>
