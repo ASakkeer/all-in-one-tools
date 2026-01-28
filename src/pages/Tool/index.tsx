@@ -82,7 +82,7 @@ const Tool = () => {
               <div className="flex items-center gap-3">
                 <Link
                   to="/"
-                  className="inline-flex items-center gap-1.5 rounded-full border border-transparent px-3 py-1.5 text-sm text-gray-600 transition-colors duration-150 hover:bg-blue-50 hover:text-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-50"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-transparent px-3 py-1.5 text-sm text-gray-600 transition-colors duration-150 hover:bg-emerald-50 hover:text-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-50"
                   aria-label="Go back to home"
                 >
                   <span aria-hidden="true" className="text-base leading-none">
@@ -106,7 +106,7 @@ const Tool = () => {
             </header>
 
             {/* Compact privacy banner */}
-            <section className="mb-4 rounded-md border border-gray-200 bg-blue-50 px-3 py-2">
+            <section className="mb-4 rounded-md border border-gray-200 bg-emerald-50 px-3 py-2">
               <p className="text-xs text-gray-700 md:text-sm">
                 <strong className="text-gray-900">🔒 Privacy &amp; Security:</strong> All processing happens
                 locally in your browser. No data is sent to any server. Your JSON content never leaves your
@@ -133,7 +133,7 @@ const Tool = () => {
             <div className="flex items-center gap-3">
               <Link
                 to="/"
-                className="inline-flex items-center gap-1.5 rounded-full border border-transparent px-3 py-1.5 text-sm text-gray-600 transition-colors duration-150 hover:bg-blue-50 hover:text-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-50"
+                className="inline-flex items-center gap-1.5 rounded-full border border-transparent px-3 py-1.5 text-sm text-gray-600 transition-colors duration-150 hover:bg-emerald-50 hover:text-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-50"
                 aria-label="Go back to home"
               >
                 <span aria-hidden="true" className="text-base leading-none">
@@ -157,7 +157,7 @@ const Tool = () => {
           </header>
 
           {/* Compact privacy banner */}
-          <section className="mb-4 rounded-md border border-gray-200 bg-blue-50 px-3 py-2">
+          <section className="mb-4 rounded-md border border-gray-200 bg-emerald-50 px-3 py-2">
             <p className="text-xs text-gray-700 md:text-sm">
               <strong className="text-gray-900">🔒 Privacy &amp; Security:</strong> Your text is
               processed entirely in your browser. No content is uploaded or stored on any server.
@@ -182,7 +182,7 @@ const Tool = () => {
             <div className="flex items-center gap-3">
               <Link
                 to="/"
-                className="inline-flex items-center gap-1.5 rounded-full border border-transparent px-3 py-1.5 text-sm text-gray-600 transition-colors duration-150 hover:bg-blue-50 hover:text-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-50"
+                className="inline-flex items-center gap-1.5 rounded-full border border-transparent px-3 py-1.5 text-sm text-gray-600 transition-colors duration-150 hover:bg-emerald-50 hover:text-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-50"
                 aria-label="Go back to home"
               >
                 <span aria-hidden="true" className="text-base leading-none">
@@ -206,7 +206,7 @@ const Tool = () => {
           </header>
 
           {/* Compact privacy banner */}
-          <section className="mb-4 rounded-md border border-gray-200 bg-blue-50 px-3 py-2">
+          <section className="mb-4 rounded-md border border-gray-200 bg-emerald-50 px-3 py-2">
             <p className="text-xs text-gray-700 md:text-sm">
               <strong className="text-gray-900">🔒 Privacy &amp; Security:</strong> All
               comparisons happen locally in your browser. No text is uploaded or stored on any

@@ -49,9 +49,9 @@ export const EditorPanel = ({ title, toolbarButtons, actionIcons, children, erro
                   key={index}
                   onClick={button.onClick}
                   disabled={button.disabled}
-                  className={`px-3 py-1.5 rounded text-sm font-medium transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1 ${
+                  className={`px-3 py-1.5 rounded text-sm font-medium transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-1 ${
                     button.active
-                      ? "bg-blue-50 text-blue-700"
+                      ? "bg-emerald-50 text-emerald-700"
                       : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                   } disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-gray-600`}
                 >

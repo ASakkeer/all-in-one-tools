@@ -1,22 +1,26 @@
 # Architecture Documentation
 
 ## Project Overview
-All-in-one tools application built with React, TypeScript, Vite, Tailwind CSS, Redux Toolkit, and React Router. Each tool is fully client-side and accessed via a simple router-based navigation.
+All-in-one tools application built with React, TypeScript, Vite, Tailwind CSS, Redux Toolkit, and React Router. Each tool is fully client-side and accessed via a simple router-based navigation. The home route renders a calm, premium landing page that introduces the Simple Web Tools suite, explains how it works, and acts as the primary discovery surface for all tools.
 
 ## High-Level Architecture Overview
 
-- **Entry & Shell**
+-- **Entry & Shell**
   - `index.html` – static HTML shell with strict CSP and SEO meta.
   - `src/main.tsx` – React entry; configures Monaco workers and mounts router.
   - `src/app/router.tsx` – `createBrowserRouter` with:
-    - `/` → `Home` (tool catalog)
+    - `/` → `Home` (landing page that composes `LandingPage`)
     - `/tools/:toolId` → `Tool` (dynamic tool host)
+    - `/support` → `Support` (quiet placeholder for “Buy me a coffee”)
 - **State Management**
   - `src/app/store.ts` – `configureStore` with an (currently) empty `reducer` map; prepared for future slices.
   - `src/app/providers.tsx` – `Providers` wraps children in Redux `<Provider store={store}>` (not yet wired into `main.tsx` but designed as the global state injection point).
-- **Pages**
-  - `src/pages/Home` – marketing-style landing with tool grid.
+-- **Pages**
+  - `src/pages/Home`
+    - `index.tsx` – small wrapper that renders `LandingPage` to keep the route entry simple.
+    - `LandingPage.tsx` – premium, calm landing page with hero, tools discovery, trust, how-it-works, feedback, support call-to-action, and footer.
   - `src/pages/Tool` – generic tool host that switches on `toolId` and renders the active tool inside a shared page shell (back navigation, compact header, privacy banner, and full-height workspace).
+  - `src/pages/Support` – simple, text-first placeholder for future “Buy me a coffee” integration.
 - **Tools**
   - `src/tools/` – each tool gets its own folder with `index.tsx`, `hooks/`, `components/`, `utils/`.
   - Current concrete implementations:
@@ -70,8 +74,9 @@ src/
 - `@/*` maps to `./src/*` for cleaner imports
 
 ### Routing
-- `/` - Home page
+- `/` - Home page / marketing landing with tools discovery
 - `/tools/:toolId` - Dynamic tool page
+- `/support` - Support page for “Buy me a coffee” flow (placeholder)
 
 ## Development Status
 - ✅ Project structure created
@@ -97,10 +102,19 @@ src/
 ### Pages
 
 - `pages/Home/index.tsx`
-  - Landing page that lists available tools in a responsive grid.
-  - Uses `useNavigate` from React Router to push to `/tools/:toolId` for active tools.
-  - Cards use Tailwind utility classes for a clean, card-based layout (`bg-white`, `rounded-lg`, `shadow-sm`, `border`, `hover:shadow-md`).
-  - Inactive tools are visually de-emphasised via `opacity-60`, `cursor-not-allowed`, and a `Coming soon` pill.
+  - Thin wrapper that renders the main `LandingPage` component to keep route wiring simple.
+- `pages/Home/LandingPage.tsx`
+  - High-quality, modern landing page for Simple Web Tools.
+  - Sections:
+    - **HeroSection** – full-viewport hero with `home-bg.jpg` background image, dark overlay, left-aligned headings, and calm dual CTAs (“Browse tools” and “Learn how it works”) with subtle fade/translateY entrance.
+    - **ToolsSearch** – large, prominent search bar that filters tools by name, description, category, and tags.
+    - **ToolsList** – category-based tool directory (Data & JSON, Text Utilities, Encoding & Security, Media & Images, Date & Time) with solid, serious tool cards. Active tools navigate to `/tools/:toolId`; “coming soon” tools are muted, non-clickable, and labelled.
+    - **TrustSection** – text-first, card-based explanation of privacy and intent (runs locally, no accounts, no ads, built for speed).
+    - **HowItWorks** – three clear steps (“Paste your data”, “Instantly process it”, “Copy and move on”) in a responsive horizontal/vertical layout.
+    - **FeedbackSection** – simple form with required message, optional email (with basic validation), and a friendly success state. Currently local-only; ready for future backend integration.
+    - **BuyMeCoffee** – warm, non-salesy support block with a “Buy me a coffee ☕” button that routes to `/support`.
+    - **Footer** – quiet footer with minimal navigation (Home, Tools, Privacy, Contact) and small, muted text.
+  - Uses light, muted palette (slate/stone neutrals with soft accent surfaces), strong typography hierarchy, soft shadows, and restrained motion to keep the experience calm and trustworthy.
 - `pages/Tool/index.tsx`
   - Generic host for tool detail pages; switches on `toolId` to render `JsonFormatter`, `WordCounter`, or `DiffChecker`.
   - Injects `JsonLdSchema` (SoftwareApplication schema) into `<head>` for JSON Formatter.
@@ -169,7 +183,7 @@ src/tools/jsonFormatter/
 ### Global Layout Patterns
 
 - **Page Shell**
-  - `min-h-screen bg-gray-50 py-10/12 px-4 sm:px-6 lg:px-8` for top-level pages (`Home`, `Tool`).
+  - `min-h-screen bg-slate-50 py-10/12 px-4 sm:px-6 lg:px-8` for top-level pages (`Home`, `Tool`, `Support`), keeping a light, neutral baseline.
   - Containers are centered via `max-w-4xl`/`max-w-6xl mx-auto`.
 - **Cards / Surfaces**
   - `bg-white rounded-lg shadow-sm border border-gray-200 p-6/8` for primary content blocks.
@@ -194,10 +208,10 @@ src/tools/jsonFormatter/
 ### Color & Visual Language
 
 - Neutral, developer-tool feel based on Tailwind palette:
-  - Backgrounds: `bg-gray-50` for page, `bg-white` for surfaces.
-  - Borders: `border-gray-200/300` for subtle separation.
-  - Text: `text-gray-900` (primary), `text-gray-600/700` (secondary), `text-gray-400` (muted).
-  - Accent: `bg-blue-50`, `text-blue-600`, `focus:ring-blue-500` for primary actions and safety messaging.
+  - Backgrounds: `bg-slate-50` for page, `bg-white` / `bg-white/90` for surfaces, with occasional soft accent surfaces such as `bg-amber-50` for warm support messaging.
+  - Borders: `border-slate-200/300` for subtle separation.
+  - Text: `text-slate-900` (primary), `text-slate-600/700` (secondary), `text-slate-400/500` (muted).
+  - Accent: soft, non-neon accents (e.g., `bg-blue-50`, `text-blue-600`, `focus:ring-slate-200`) for primary actions and safety messaging, avoiding pure black and bright/neon colors.
 - Status colors:
   - Success: `text-green-700 bg-green-50/60`.
   - Error: `text-red-700 bg-red-50/60`.

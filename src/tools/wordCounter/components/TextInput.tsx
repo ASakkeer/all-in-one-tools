@@ -20,7 +20,7 @@ export const TextInput: FC<TextInputProps> = ({ value, onChange }) => {
           id="word-counter-input"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="block h-72 w-full resize-none rounded-lg border-0 bg-transparent p-3 text-sm text-gray-900 outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+          className="block h-72 w-full resize-none rounded-lg border-0 bg-transparent p-3 text-sm text-gray-900 outline-none focus-visible:ring-2 focus-visible:ring-emerald-300"
           placeholder="Paste or type your text here to see word, character, and sentence counts in real time..."
         />
       </div>
