@@ -10,6 +10,8 @@ import {
 } from "react"
 import { useNavigate } from "react-router-dom"
 import heroBackground from "@/assets/images/home-bg.jpg"
+import coffeeCup from "@/assets/images/coffee-cup.png"
+import bmcQr from "@/assets/images/bmc_qr.png"
 
 type ToolStatus = "active" | "coming-soon"
 
@@ -695,32 +697,53 @@ const FeedbackSection: React.FC = () => {
 }
 
 const BuyMeCoffee: React.FC = () => {
-  const navigate = useNavigate()
-
-  const handleClick = () => {
-    navigate("/support")
-  }
-
   return (
     <SectionFade className="max-w-5xl mx-auto pt-16 sm:pt-20">
-      <div className="rounded-xl border border-amber-100 bg-amber-50/90 px-4 py-6 sm:px-6 sm:py-7 shadow-sm">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div>
-            <h2 className="text-lg sm:text-xl font-semibold text-slate-900 mb-1">
-              Like these tools?
-            </h2>
-            <p className="text-sm sm:text-base text-slate-700 max-w-xl">
-              You can support the project if you want. There&apos;s no pressure—this stays useful
-              and free either way.
-            </p>
+      <div className="rounded-2xl border border-amber-100 bg-amber-50/90 px-5 py-7 sm:px-7 sm:py-8 shadow-sm">
+        <div className="flex flex-col items-center gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex-shrink-0">
+            <img
+              src={coffeeCup}
+              alt="Coffee cup illustration"
+              className="h-24 w-24 sm:h-28 sm:w-28 object-contain drop-shadow-sm"
+              loading="lazy"
+            />
           </div>
-          <button
-            type="button"
-            onClick={handleClick}
-            className="inline-flex items-center justify-center rounded-xl bg-[#088108] px-4 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-[#066306] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 transform transition-all duration-300 hover:scale-105 animate-subtle-pulse"
-          >
-            Buy me a coffee ☕
-          </button>
+          <div className="flex-1 space-y-3 text-center sm:text-left">
+            <div>
+              <h2 className="text-xl sm:text-2xl font-semibold text-slate-900 mb-1">
+                Like these tools?
+              </h2>
+              <p className="text-sm sm:text-base text-slate-700 max-w-xl">
+                If they save you a bit of time or focus, you can buy me a coffee. It&apos;s optional,
+                but always appreciated.
+              </p>
+            </div>
+            <div className="pt-1">
+              <a
+                href="https://www.buymeacoffee.com/sakkeer"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#088108] px-6 py-3 text-sm sm:text-base font-semibold text-white shadow-md hover:bg-[#066306] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 transform transition-all duration-200 hover:scale-105 animate-subtle-pulse"
+              >
+                <img
+                  src={coffeeCup}
+                  alt="Coffee"
+                  className="h-6 w-6 object-contain"
+                  loading="lazy"
+                />
+                <span>Buy me a coffee</span>
+              </a>
+            </div>
+          </div>
+          <div className="flex-shrink-0">
+            <img
+              src={bmcQr}
+              alt="Scan to buy me a coffee"
+              className="h-24 w-24 sm:h-28 sm:w-28 object-contain rounded-lg border border-amber-100 bg-white/90 p-1 shadow-sm"
+              loading="lazy"
+            />
+          </div>
         </div>
       </div>
     </SectionFade>
