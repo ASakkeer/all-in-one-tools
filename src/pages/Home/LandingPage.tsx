@@ -268,29 +268,29 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onBrowseTools, onLearnHowItWo
       <div className="relative z-10 flex min-h-screen items-center">
         <div className="w-full px-4 py-16 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
-            <p
+            {/* <p
               className={`text-sm font-semibold uppercase tracking-[0.16em] text-slate-200/80 mb-4 transition-all duration-700 ease-out ${
                 mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
               }`}
             >
               Simple Web Tools
-            </p>
+            </p> */}
             <h1
-              className={`text-5xl sm:text-5xl lg:text-6xl font-bold text-slate-50 mb-6 leading-tight transition-all duration-700 ease-out delay-75 ${
+              className={`text-6xl sm:text-6xl lg:text-7xl font-bold text-slate-50 mb-6 leading-tight transition-all duration-700 ease-out delay-75 ${
                 mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
             >
               Simple Web Tools
             </h1>
             <p
-              className={`text-lg sm:text-xl text-slate-100/90 max-w-xl mx-auto mb-3 transition-all duration-700 ease-out delay-150 ${
+              className={`text-xl sm:text-2xl text-slate-100/90 max-w-xl mx-auto mb-3 transition-all duration-700 ease-out delay-150 ${
                 mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
             >
               Fast, private, browser-based tools for developers and everyday tasks.
             </p>
             <p
-              className={`text-sm sm:text-base text-slate-200/90 max-w-lg mx-auto mb-8 transition-all duration-700 ease-out delay-200 ${
+              className={`text-lg sm:text-xl text-slate-200/90 max-w-lg mx-auto mb-8 transition-all duration-700 ease-out delay-200 ${
                 mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
             >
