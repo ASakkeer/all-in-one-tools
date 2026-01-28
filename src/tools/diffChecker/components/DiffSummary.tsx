@@ -16,7 +16,7 @@ export const DiffSummaryBar: FC<DiffSummaryProps> = ({ summary }) => {
       <span className="whitespace-nowrap rounded border border-red-100 bg-red-50 px-2 py-0.5 text-[11px] font-medium text-red-700">
         −{summary.deletions} deletions
       </span>
-      <span className="whitespace-nowrap rounded border border-blue-100 bg-blue-50 px-2 py-0.5 text-[11px] font-medium text-blue-700">
+      <span className="whitespace-nowrap rounded border border-emerald-100 bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700">
         {summary.modifications} modifications
       </span>
     </div>

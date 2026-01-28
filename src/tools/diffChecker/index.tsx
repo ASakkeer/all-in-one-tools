@@ -53,9 +53,13 @@ export const DiffChecker = () => {
   }
 
   const handleScrollToDiff = () => {
-    if (diffSectionRef.current) {
-      diffSectionRef.current.scrollIntoView({ behavior: "smooth", block: "start" })
-    }
+    if (!diffSectionRef.current) return
+
+    const headerOffset = 96 // approximate sticky header height
+    const rect = diffSectionRef.current.getBoundingClientRect()
+    const scrollTop = window.scrollY + rect.top - headerOffset
+
+    window.scrollTo({ top: Math.max(scrollTop, 0), behavior: "smooth" })
   }
 
   return (
@@ -79,7 +83,7 @@ export const DiffChecker = () => {
               onClick={() => handleViewChange("side-by-side")}
               className={`rounded px-3 py-1 text-[11px] font-medium ${
                 viewMode === "side-by-side"
-                  ? "bg-blue-50 text-blue-700"
+                  ? "bg-emerald-50 text-emerald-700"
                   : "text-gray-600 hover:bg-gray-50"
               }`}
               aria-pressed={viewMode === "side-by-side"}
@@ -91,7 +95,7 @@ export const DiffChecker = () => {
               onClick={() => handleViewChange("inline")}
               className={`rounded px-3 py-1 text-[11px] font-medium ${
                 viewMode === "inline"
-                  ? "bg-blue-50 text-blue-700"
+                  ? "bg-emerald-50 text-emerald-700"
                   : "text-gray-600 hover:bg-gray-50"
               }`}
               aria-pressed={viewMode === "inline"}
@@ -110,11 +114,11 @@ export const DiffChecker = () => {
         {/* Apply all actions */}
         <div className="inline-flex flex-wrap items-center gap-2 text-[11px] text-gray-600">
           <span className="text-gray-500 whitespace-nowrap">Apply all</span>
-          <button
-            type="button"
-            onClick={() => applyChangeLeftToRight("all")}
-            disabled={!hasDiffs}
-            className="inline-flex items-center gap-1 whitespace-nowrap rounded border border-gray-200 bg-white px-3 py-1 text-[11px] font-medium text-gray-600 shadow-sm transition-colors duration-150 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+            <button
+              type="button"
+              onClick={() => applyChangeLeftToRight("all")}
+              disabled={!hasDiffs}
+              className="inline-flex items-center gap-1 whitespace-nowrap rounded border border-gray-200 bg-white px-3 py-1 text-[11px] font-medium text-gray-600 shadow-sm transition-colors duration-150 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
             aria-label="Apply all changes from left to right"
             title="Apply all changes from left to right"
           >
@@ -125,7 +129,7 @@ export const DiffChecker = () => {
             type="button"
             onClick={() => applyChangeRightToLeft("all")}
             disabled={!hasDiffs}
-            className="inline-flex items-center gap-1 whitespace-nowrap rounded border border-gray-200 bg-white px-3 py-1 text-[11px] font-medium text-gray-600 shadow-sm transition-colors duration-150 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+            className="inline-flex items-center gap-1 whitespace-nowrap rounded border border-gray-200 bg-white px-3 py-1 text-[11px] font-medium text-gray-600 shadow-sm transition-colors duration-150 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
             aria-label="Apply all changes from right to left"
             title="Apply all changes from right to left"
           >
@@ -141,7 +145,7 @@ export const DiffChecker = () => {
             type="button"
             onClick={goToPreviousDiff}
             disabled={!hasDiffs}
-            className="inline-flex items-center gap-1 whitespace-nowrap rounded border border-gray-200 bg-white px-3 py-1 text-[11px] font-medium text-gray-600 shadow-sm transition-colors duration-150 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+            className="inline-flex items-center gap-1 whitespace-nowrap rounded border border-gray-200 bg-white px-3 py-1 text-[11px] font-medium text-gray-600 shadow-sm transition-colors duration-150 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
             aria-label="Previous difference"
             title="Previous difference"
           >
@@ -152,7 +156,7 @@ export const DiffChecker = () => {
             type="button"
             onClick={goToNextDiff}
             disabled={!hasDiffs}
-            className="inline-flex items-center gap-1 whitespace-nowrap rounded border border-gray-200 bg-white px-3 py-1 text-[11px] font-medium text-gray-600 shadow-sm transition-colors duration-150 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+            className="inline-flex items-center gap-1 whitespace-nowrap rounded border border-gray-200 bg-white px-3 py-1 text-[11px] font-medium text-gray-600 shadow-sm transition-colors duration-150 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
             aria-label="Next difference"
             title="Next difference"
           >
@@ -174,10 +178,10 @@ export const DiffChecker = () => {
             >
               Original text
             </label>
-            <div className="flex flex-1 rounded-lg border border-gray-200 bg-gray-50 overflow-hidden">
+            <div className="flex flex-1 max-h-[27rem] sm:max-h-[30rem] rounded-lg border border-gray-200 bg-gray-50 overflow-hidden">
               <div
                 ref={leftGutterRef}
-                className="hidden h-full select-none border-r border-gray-200 bg-gray-100 px-2 py-3 text-xs text-gray-400 sm:block sm:overflow-auto"
+                className="hidden h-full select-none border-r border-gray-200 bg-gray-100 px-2 py-3 text-xs text-gray-400 sm:block sm:overflow-hidden"
                 aria-hidden="true"
               >
                 {leftLines.map((_, index) => (
@@ -191,7 +195,7 @@ export const DiffChecker = () => {
                 value={leftText}
                 onChange={(e) => setLeftText(e.target.value)}
                 onScroll={handleLeftScroll}
-                className="block h-full w-full flex-1 resize-none border-0 bg-transparent p-3 text-sm text-gray-900 outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                className="block h-full w-full flex-1 resize-none border-0 bg-transparent p-3 text-sm text-gray-900 outline-none focus-visible:ring-2 focus-visible:ring-emerald-300"
                 placeholder="Paste or type the original text here..."
               />
             </div>
@@ -205,10 +209,10 @@ export const DiffChecker = () => {
             >
               Modified text
             </label>
-            <div className="flex flex-1 rounded-lg border border-gray-200 bg-gray-50 overflow-hidden">
+            <div className="flex flex-1 max-h-[26rem] sm:max-h-[30rem] rounded-lg border border-gray-200 bg-gray-50 overflow-hidden">
               <div
                 ref={rightGutterRef}
-                className="hidden h-full select-none border-r border-gray-200 bg-gray-100 px-2 py-3 text-xs text-gray-400 sm:block sm:overflow-auto"
+                className="hidden h-full select-none border-r border-gray-200 bg-gray-100 px-2 py-3 text-xs text-gray-400 sm:block sm:overflow-hidden"
                 aria-hidden="true"
               >
                 {rightLines.map((_, index) => (
@@ -222,7 +226,7 @@ export const DiffChecker = () => {
                 value={rightText}
                 onChange={(e) => setRightText(e.target.value)}
                 onScroll={handleRightScroll}
-                className="block h-full w-full flex-1 resize-none border-0 bg-transparent p-3 text-sm text-gray-900 outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                className="block h-full w-full flex-1 resize-none border-0 bg-transparent p-3 text-sm text-gray-900 outline-none focus-visible:ring-2 focus-visible:ring-emerald-300"
                 placeholder="Paste or type the modified text here..."
               />
             </div>
@@ -274,10 +278,10 @@ export const DiffChecker = () => {
       {/* Floating View differences button - centered at bottom of viewport */}
       {hasDiffs && (
         <div className="pointer-events-none fixed inset-x-0 bottom-6 z-30 flex justify-center">
-          <button
-            type="button"
-            onClick={handleScrollToDiff}
-            className="pointer-events-auto inline-flex items-center gap-1 whitespace-nowrap rounded-full bg-blue-600 px-4 py-1.5 text-xs font-medium text-white shadow-md transition-colors duration-150 hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            <button
+              type="button"
+              onClick={handleScrollToDiff}
+              className="pointer-events-auto inline-flex items-center gap-1 whitespace-nowrap rounded-full bg-[#088108] px-4 py-1.5 text-xs font-medium text-white shadow-md transition-colors duration-150 hover:bg-[#066306] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2"
             aria-label="Scroll to diff results"
             title="Scroll to diff results"
           >

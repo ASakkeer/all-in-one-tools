@@ -144,7 +144,7 @@ export const JsonFormatter = () => {
                 disabled={!input.trim()}
                 className={`p-1.5 rounded transition-colors duration-150 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-gray-500 ${
                   lastInputAction === "format"
-                    ? "text-blue-600 bg-blue-50"
+                    ? "text-emerald-700 bg-emerald-50"
                     : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
                 }`}
                 title="Format JSON"
@@ -158,7 +158,7 @@ export const JsonFormatter = () => {
                 disabled={!input.trim()}
                 className={`p-1.5 rounded transition-colors duration-150 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-gray-500 ${
                   lastInputAction === "minify"
-                    ? "text-blue-600 bg-blue-50"
+                    ? "text-emerald-700 bg-emerald-50"
                     : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
                 }`}
                 title="Minify JSON"
@@ -172,9 +172,9 @@ export const JsonFormatter = () => {
                 disabled={!input.trim()}
                 className={`p-1.5 rounded transition-colors duration-150 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-gray-300 ${
                   showCopyInputSuccess
-                    ? "text-green-600 hover:bg-green-50"
+                    ? "text-emerald-700 hover:bg-emerald-50"
                     : lastInputAction === "copy"
-                      ? "text-blue-600 bg-blue-50"
+                      ? "text-emerald-700 bg-emerald-50"
                       : input.trim()
                         ? "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
                         : "text-gray-300 cursor-not-allowed"
@@ -193,7 +193,7 @@ export const JsonFormatter = () => {
                 disabled={!input.trim()}
                 className={`p-1.5 rounded transition-colors duration-150 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-gray-500 ${
                   lastInputAction === "clear"
-                    ? "text-blue-600 bg-blue-50"
+                    ? "text-emerald-700 bg-emerald-50"
                     : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
                 }`}
                 title="Clear input"
@@ -230,7 +230,7 @@ export const JsonFormatter = () => {
                 disabled={!output}
                 className={`p-1.5 rounded transition-colors duration-150 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-gray-500 ${
                   lastOutputAction === "sortAsc"
-                    ? "text-blue-600 bg-blue-50"
+                    ? "text-emerald-700 bg-emerald-50"
                     : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
                 }`}
                 title="Sort keys ascending"
@@ -243,7 +243,7 @@ export const JsonFormatter = () => {
                 disabled={!output}
                 className={`p-1.5 rounded transition-colors duration-150 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-gray-500 ${
                   lastOutputAction === "sortDesc"
-                    ? "text-blue-600 bg-blue-50"
+                    ? "text-emerald-700 bg-emerald-50"
                     : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
                 }`}
                 title="Sort keys descending"
@@ -256,7 +256,7 @@ export const JsonFormatter = () => {
                 disabled={!output}
                 className={`p-1.5 rounded transition-colors duration-150 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-gray-500 ${
                   lastOutputAction === "removeNulls"
-                    ? "text-blue-600 bg-blue-50"
+                    ? "text-emerald-700 bg-emerald-50"
                     : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
                 }`}
                 title="Remove null / empty"
@@ -269,9 +269,9 @@ export const JsonFormatter = () => {
                 disabled={!output}
                 className={`p-1.5 rounded transition-colors duration-150 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-gray-300 ${
                   showCopyOutputSuccess
-                    ? "text-green-600 hover:bg-green-50"
+                    ? "text-emerald-700 hover:bg-emerald-50"
                     : lastOutputAction === "copy"
-                      ? "text-blue-600 bg-blue-50"
+                      ? "text-emerald-700 bg-emerald-50"
                       : output
                         ? "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
                         : "text-gray-300 cursor-not-allowed"

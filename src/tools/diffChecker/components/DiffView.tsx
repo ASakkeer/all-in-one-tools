@@ -95,7 +95,7 @@ export const DiffView: FC<DiffViewProps> = ({
                       <button
                         type="button"
                         onClick={() => onApplyLeftToRight(index)}
-                        className="inline-flex items-center justify-center rounded border border-gray-200 bg-white p-1 text-gray-500 shadow-sm transition-colors duration-150 hover:bg-gray-50 hover:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1"
+                        className="inline-flex items-center justify-center rounded border border-gray-200 bg-white p-1 text-gray-500 shadow-sm transition-colors duration-150 hover:bg-gray-50 hover:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-1"
                         aria-label="Apply change from left to right"
                       >
                         <ArrowRight className="h-3 w-3" />
@@ -103,7 +103,7 @@ export const DiffView: FC<DiffViewProps> = ({
                       <button
                         type="button"
                         onClick={() => onApplyRightToLeft(index)}
-                        className="inline-flex items-center justify-center rounded border border-gray-200 bg-white p-1 text-gray-500 shadow-sm transition-colors duration-150 hover:bg-gray-50 hover:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1"
+                        className="inline-flex items-center justify-center rounded border border-gray-200 bg-white p-1 text-gray-500 shadow-sm transition-colors duration-150 hover:bg-gray-50 hover:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-1"
                         aria-label="Apply change from right to left"
                       >
                         <ArrowLeft className="h-3 w-3" />
@@ -163,7 +163,7 @@ export const DiffView: FC<DiffViewProps> = ({
                       <button
                         type="button"
                         onClick={() => onApplyLeftToRight(index)}
-                        className="inline-flex items-center justify-center rounded border border-gray-200 bg-white p-1 text-gray-500 shadow-sm transition-colors duration-150 hover:bg-gray-50 hover:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1"
+                        className="inline-flex items-center justify-center rounded border border-gray-200 bg-white p-1 text-gray-500 shadow-sm transition-colors duration-150 hover:bg-gray-50 hover:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-1"
                         aria-label="Apply change from left to right"
                       >
                         <ArrowRight className="h-3 w-3" />
@@ -171,7 +171,7 @@ export const DiffView: FC<DiffViewProps> = ({
                       <button
                         type="button"
                         onClick={() => onApplyRightToLeft(index)}
-                        className="inline-flex items-center justify-center rounded border border-gray-200 bg-white p-1 text-gray-500 shadow-sm transition-colors duration-150 hover:bg-gray-50 hover:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1"
+                        className="inline-flex items-center justify-center rounded border border-gray-200 bg-white p-1 text-gray-500 shadow-sm transition-colors duration-150 hover:bg-gray-50 hover:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-1"
                         aria-label="Apply change from right to left"
                       >
                         <ArrowLeft className="h-3 w-3" />

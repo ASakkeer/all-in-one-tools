@@ -21,7 +21,7 @@ export const DiffOptions: FC<DiffOptionsProps> = ({
       <label className="inline-flex items-center gap-1 cursor-pointer whitespace-nowrap">
         <input
           type="checkbox"
-          className="h-3.5 w-3.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+          className="h-3.5 w-3.5 rounded border-gray-300 text-[#088108] focus:ring-emerald-300"
           checked={options.ignoreWhitespace}
           onChange={() => onToggleOption("ignoreWhitespace")}
         />
@@ -30,7 +30,7 @@ export const DiffOptions: FC<DiffOptionsProps> = ({
       <label className="inline-flex items-center gap-1 cursor-pointer whitespace-nowrap">
         <input
           type="checkbox"
-          className="h-3.5 w-3.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+          className="h-3.5 w-3.5 rounded border-gray-300 text-[#088108] focus:ring-emerald-300"
           checked={options.ignoreCase}
           onChange={() => onToggleOption("ignoreCase")}
         />
@@ -39,7 +39,7 @@ export const DiffOptions: FC<DiffOptionsProps> = ({
       <label className="inline-flex items-center gap-1 cursor-pointer whitespace-nowrap">
         <input
           type="checkbox"
-          className="h-3.5 w-3.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+          className="h-3.5 w-3.5 rounded border-gray-300 text-[#088108] focus:ring-emerald-300"
           checked={options.ignoreEmptyLines}
           onChange={() => onToggleOption("ignoreEmptyLines")}
         />
@@ -48,7 +48,7 @@ export const DiffOptions: FC<DiffOptionsProps> = ({
       <label className="inline-flex items-center gap-1 cursor-pointer whitespace-nowrap">
         <input
           type="checkbox"
-          className="h-3.5 w-3.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+          className="h-3.5 w-3.5 rounded border-gray-300 text-[#088108] focus:ring-emerald-300"
           checked={showUnchanged}
           onChange={onToggleShowUnchanged}
         />
