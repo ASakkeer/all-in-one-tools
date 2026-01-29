@@ -196,6 +196,14 @@ const TOOL_CATEGORIES: ToolCategory[] = [
         category: "Date & Time",
       },
       {
+        id: "days-between",
+        name: "Days Between Two Dates",
+        description: "Calculate the number of days between two dates, including weekdays, alternative units, and calendar visualization.",
+        status: "active",
+        tags: ["days", "calculator", "date", "calendar", "weekdays"],
+        category: "Date & Time",
+      },
+      {
         id: "timestamp-converter",
         name: "Timestamp Converter",
         description: "Convert between Unix timestamps and readable dates (runs locally).",
