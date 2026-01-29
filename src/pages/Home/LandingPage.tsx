@@ -92,11 +92,11 @@ const TOOL_CATEGORIES: ToolCategory[] = [
         category: "Data & JSON",
       },
       {
-        id: "csv-json",
-        name: "CSV ↔ JSON",
-        description: "Convert between CSV and JSON structures.",
-        status: "coming-soon",
-        tags: ["csv", "json", "convert"],
+        id: "csv-to-json",
+        name: "CSV to JSON",
+        description: "Convert CSV into clean, pretty JSON (runs locally).",
+        status: "active",
+        tags: ["csv", "json", "convert", "privacy-first"],
         category: "Data & JSON",
       },
       {
