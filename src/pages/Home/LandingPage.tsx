@@ -190,9 +190,9 @@ const TOOL_CATEGORIES: ToolCategory[] = [
       {
         id: "date-converter",
         name: "Date Converter",
-        description: "Shift, compare, and reformat dates.",
-        status: "coming-soon",
-        tags: ["date", "format", "timezones"],
+        description: "Convert dates across ISO, regional, and technical formats (runs locally).",
+        status: "active",
+        tags: ["date", "format", "regional", "iso"],
         category: "Date & Time",
       },
       {

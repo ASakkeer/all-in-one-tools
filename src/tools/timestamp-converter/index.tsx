@@ -24,25 +24,33 @@ export const TimestampConverter = () => {
 
   return (
     <div className="flex h-full flex-col gap-3 overflow-hidden pb-6">
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <TimestampInputPanel
-          input={state.input}
-          onChangeInput={setInput}
-          unit={state.unit}
-          onChangeUnit={setUnit}
-          timezone={state.timezone}
-          onChangeTimezone={setTimezone}
-          autoDetect={state.autoDetect}
-          onChangeAutoDetect={setAutoDetect}
-          onConvert={convert}
-          onUseCurrentTime={useCurrentTime}
-          onClearAll={clearAll}
-          error={error}
-          isConverting={isConverting}
-          inputRef={inputRef}
-        />
+      <div className="flex flex-1 flex-col gap-6 lg:flex-row lg:gap-6">
+        {/* Left side: static input panel */}
+        <div className="lg:w-1/2 flex-shrink-0">
+          <TimestampInputPanel
+            input={state.input}
+            onChangeInput={setInput}
+            unit={state.unit}
+            onChangeUnit={setUnit}
+            timezone={state.timezone}
+            onChangeTimezone={setTimezone}
+            autoDetect={state.autoDetect}
+            onChangeAutoDetect={setAutoDetect}
+            onConvert={convert}
+            onUseCurrentTime={useCurrentTime}
+            onClearAll={clearAll}
+            error={error}
+            isConverting={isConverting}
+            inputRef={inputRef}
+          />
+        </div>
 
-        <TimestampOutputPanel result={result} onCopy={copyValue} success={success} statsBar={statsBar} />
+        {/* Right side: scrollable output */}
+        <div className="lg:w-1/2 flex-1 min-h-0">
+          <div className="h-full overflow-y-auto">
+            <TimestampOutputPanel result={result} onCopy={copyValue} success={success} statsBar={statsBar} />
+          </div>
+        </div>
       </div>
     </div>
   )
