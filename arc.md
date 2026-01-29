@@ -31,6 +31,7 @@ All-in-one tools application built with React, TypeScript, Vite, Tailwind CSS, R
     - `jsonFormatter` – JSON formatting, validation, and transformation.
   - `csvToJson` – CSV to JSON conversion with delimiter options, table preview, and export actions.
   - `jsonToCsv` – JSON to CSV conversion with flattening/array handling options, table preview, and export actions.
+  - `date-converter` – Date conversion between ISO, regional, technical formats with metadata.
     - `wordCounter` – text statistics (words, characters, sentences, lines, paragraphs).
     - `diffChecker` – text diffing with side-by-side and inline views.
   - `timestamp-converter` – Timestamp to date/time conversion with prioritized primary results and progressive disclosure of advanced formats.
@@ -202,6 +203,19 @@ src/tools/timestamp-converter/
  │   └─ TimestampOutputPanel.tsx       # Primary/common/advanced/metadata sections with copy actions
  └─ utils/
      └─ timestampUtils.ts              # Parsing + formatting utilities for Unix/ISO/RFC and metadata
+```
+
+### Date Converter Tool Structure
+```
+src/tools/date-converter/
+ ├─ index.tsx                          # Main container (two-panel layout with prioritized outputs)
+ ├─ hooks/
+ │   └─ useDateConverter.ts            # Tool state, options, conversion trigger, and copy actions
+ ├─ components/
+ │   ├─ DateInputPanel.tsx             # Date picker/manual input + interpretation/format options
+ │   └─ DateOutputPanel.tsx            # Primary/regional/technical/metadata sections with copy actions
+ └─ utils/
+     └─ dateUtils.ts                   # Date parsing/formatting utilities and metadata helpers
 ```
 
 ### JSON Formatter Main Container (`tools/jsonFormatter/index.tsx`)
