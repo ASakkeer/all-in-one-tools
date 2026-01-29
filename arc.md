@@ -33,6 +33,7 @@ All-in-one tools application built with React, TypeScript, Vite, Tailwind CSS, R
   - `jsonToCsv` – JSON to CSV conversion with flattening/array handling options, table preview, and export actions.
     - `wordCounter` – text statistics (words, characters, sentences, lines, paragraphs).
     - `diffChecker` – text diffing with side-by-side and inline views.
+  - `timestamp-converter` – Timestamp to date/time conversion with prioritized primary results and progressive disclosure of advanced formats.
 - **Styling & Design System**
   - Tailwind CSS v4 (via `@import "tailwindcss"` in `src/index.css`) as the primary design system.
   - Additional app-level styles may live in `src/App.css` (currently Vite boilerplate) and can be trimmed or repurposed.
@@ -188,6 +189,19 @@ src/tools/jsonToCsv/
  │   └─ TablePreview.tsx       # Scrollable table preview for verification
  └─ utils/
      └─ jsonToCsv.ts           # JSON->CSV conversion utility (flattening, arrays, CSV escaping)
+```
+
+### Timestamp Converter Tool Structure
+```
+src/tools/timestamp-converter/
+ ├─ index.tsx                          # Main container (two-panel layout with prioritized outputs)
+ ├─ hooks/
+ │   └─ useTimestampConverter.ts       # Tool state, options, conversion trigger, and copy actions
+ ├─ components/
+ │   ├─ TimestampInputPanel.tsx        # Timestamp/date input + unit/timezone/auto-detect options
+ │   └─ TimestampOutputPanel.tsx       # Primary/common/advanced/metadata sections with copy actions
+ └─ utils/
+     └─ timestampUtils.ts              # Parsing + formatting utilities for Unix/ISO/RFC and metadata
 ```
 
 ### JSON Formatter Main Container (`tools/jsonFormatter/index.tsx`)
