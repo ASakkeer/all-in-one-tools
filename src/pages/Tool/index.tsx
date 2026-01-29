@@ -5,6 +5,7 @@ import { JsonFormatter } from "@/tools/jsonFormatter"
 import { WordCounter } from "@/tools/wordCounter"
 import { DiffChecker } from "@/tools/diffChecker"
 import { CsvToJson } from "@/tools/csvToJson"
+import { JsonToCsv } from "@/tools/jsonToCsv"
 
 // Tool SEO helper - updates title + meta description for tool pages
 const setToolSeo = (title: string, description: string) => {
@@ -85,6 +86,14 @@ const Tool = () => {
       setToolSeo(
         "CSV to JSON Converter – Free Online Tool",
         "Convert CSV to JSON securely in your browser. No upload, no tracking, privacy-first client-side CSV parsing with copy and download options."
+      )
+      return
+    }
+
+    if (toolId === "json-to-csv") {
+      setToolSeo(
+        "JSON to CSV Converter – Free Online Tool",
+        "Convert JSON to CSV securely in your browser. No upload, no tracking, privacy-first client-side conversion with copy and download options."
       )
       return
     }
@@ -220,6 +229,56 @@ const Tool = () => {
 
           <section aria-label="CSV to JSON Converter Tool" className="flex-1 overflow-hidden pt-4">
             <CsvToJson />
+          </section>
+        </div>
+      </main>
+    )
+  }
+
+  if (toolId === "json-to-csv") {
+    return (
+      <main className="min-h-screen bg-gray-50 py-4 px-4 sm:px-6 lg:px-8 flex flex-col">
+        <div className="mx-auto w-full max-w-7xl flex-1 flex flex-col">
+          <div className="sticky top-0 z-30 -mx-4 sm:-mx-6 lg:-mx-8 border-b border-gray-200 bg-gray-50/95 backdrop-blur px-4 sm:px-6 lg:px-8 pt-2 pb-3">
+            <header className="mb-2 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+              <div className="flex items-center gap-3">
+                <Link
+                  to="/"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-transparent px-3 py-1.5 text-sm text-gray-600 transition-colors duration-150 hover:bg-emerald-50 hover:text-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-50"
+                  aria-label="Go back to home"
+                >
+                  <span aria-hidden="true" className="text-base leading-none">
+                    ←
+                  </span>
+                  <span className="font-medium">Home</span>
+                </Link>
+                <div>
+                  <h1
+                    id="json-to-csv-title"
+                    className="text-xl font-semibold tracking-tight text-gray-900 md:text-2xl"
+                  >
+                    JSON to CSV Converter
+                  </h1>
+                  <p className="text-xs text-gray-600 md:text-sm">
+                    <strong className="text-gray-900">
+                      Privacy First – All processing happens in your browser.
+                    </strong>{" "}
+                    Convert JSON into CSV with copy, download, and table preview.
+                  </p>
+                </div>
+              </div>
+            </header>
+
+            <section className="rounded-md border border-gray-200 bg-emerald-50 px-3 py-2">
+              <p className="text-xs text-gray-700 md:text-sm">
+                <strong className="text-gray-900">🔒 Privacy &amp; Security:</strong> All processing happens
+                locally in your browser. No data is sent to any server.
+              </p>
+            </section>
+          </div>
+
+          <section aria-label="JSON to CSV Converter Tool" className="flex-1 overflow-hidden pt-4">
+            <JsonToCsv />
           </section>
         </div>
       </main>
