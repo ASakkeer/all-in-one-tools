@@ -29,6 +29,7 @@ All-in-one tools application built with React, TypeScript, Vite, Tailwind CSS, R
   - `src/tools/` – each tool gets its own folder with `index.tsx`, `hooks/`, `components/`, `utils/`.
   - Current concrete implementations:
     - `jsonFormatter` – JSON formatting, validation, and transformation.
+  - `csvToJson` – CSV to JSON conversion with delimiter options, table preview, and export actions.
     - `wordCounter` – text statistics (words, characters, sentences, lines, paragraphs).
     - `diffChecker` – text diffing with side-by-side and inline views.
 - **Styling & Design System**
@@ -158,6 +159,20 @@ src/tools/jsonFormatter/
      ├─ formatJson.ts            # JSON formatting utility
      ├─ jsonTransformations.ts  # Transform operations
      └─ jsonErrorParser.ts       # Error parsing for line/column extraction
+```
+
+### CSV to JSON Converter Tool Structure
+```
+src/tools/csvToJson/
+ ├─ index.tsx                  # Main container component (two-panel layout + privacy note)
+ ├─ hooks/
+ │   └─ useCsvToJson.ts        # Tool state and actions (convert/copy/download/reset)
+ ├─ components/
+ │   ├─ CsvInputPanel.tsx      # CSV input + parsing options UI
+ │   ├─ JsonOutputPanel.tsx    # Output panel with stats bar, actions, and table toggle
+ │   └─ TablePreview.tsx       # Scrollable table preview for verification
+ └─ utils/
+     └─ parseCsv.ts            # Quote-aware CSV parsing utility with row-level errors
 ```
 
 ### JSON Formatter Main Container (`tools/jsonFormatter/index.tsx`)
