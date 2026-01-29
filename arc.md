@@ -29,8 +29,13 @@ All-in-one tools application built with React, TypeScript, Vite, Tailwind CSS, R
   - `src/tools/` – each tool gets its own folder with `index.tsx`, `hooks/`, `components/`, `utils/`.
   - Current concrete implementations:
     - `jsonFormatter` – JSON formatting, validation, and transformation.
+  - `csvToJson` – CSV to JSON conversion with delimiter options, table preview, and export actions.
+  - `jsonToCsv` – JSON to CSV conversion with flattening/array handling options, table preview, and export actions.
+  - `date-converter` – Date conversion between ISO, regional, technical formats with metadata.
+  - `days-between` – Days calculator between two dates: primary result, alternative units, calendar visualization, and detailed breakdown (weekdays, leap year).
     - `wordCounter` – text statistics (words, characters, sentences, lines, paragraphs).
     - `diffChecker` – text diffing with side-by-side and inline views.
+  - `timestamp-converter` – Timestamp to date/time conversion with prioritized primary results and progressive disclosure of advanced formats.
 - **Styling & Design System**
   - Tailwind CSS v4 (via `@import "tailwindcss"` in `src/index.css`) as the primary design system.
   - Additional app-level styles may live in `src/App.css` (currently Vite boilerplate) and can be trimmed or repurposed.
@@ -158,6 +163,74 @@ src/tools/jsonFormatter/
      ├─ formatJson.ts            # JSON formatting utility
      ├─ jsonTransformations.ts  # Transform operations
      └─ jsonErrorParser.ts       # Error parsing for line/column extraction
+```
+
+### CSV to JSON Converter Tool Structure
+```
+src/tools/csvToJson/
+ ├─ index.tsx                  # Main container component (two-panel layout + privacy note)
+ ├─ hooks/
+ │   └─ useCsvToJson.ts        # Tool state and actions (convert/copy/download/reset)
+ ├─ components/
+ │   ├─ CsvInputPanel.tsx      # CSV input + parsing options UI
+ │   ├─ JsonOutputPanel.tsx    # Output panel with stats bar, actions, and table toggle
+ │   └─ TablePreview.tsx       # Scrollable table preview for verification
+ └─ utils/
+     └─ parseCsv.ts            # Quote-aware CSV parsing utility with row-level errors
+```
+
+### JSON to CSV Converter Tool Structure
+```
+src/tools/jsonToCsv/
+ ├─ index.tsx                  # Main container component (two-panel layout)
+ ├─ hooks/
+ │   └─ useJsonToCsv.ts        # Tool state and actions (convert/copy/download/reset)
+ ├─ components/
+ │   ├─ JsonInputPanel.tsx     # JSON input + conversion options UI
+ │   ├─ CsvOutputPanel.tsx     # Output panel with stats bar, actions, table toggle, and line endings toggle
+ │   └─ TablePreview.tsx       # Scrollable table preview for verification
+ └─ utils/
+     └─ jsonToCsv.ts           # JSON->CSV conversion utility (flattening, arrays, CSV escaping)
+```
+
+### Timestamp Converter Tool Structure
+```
+src/tools/timestamp-converter/
+ ├─ index.tsx                          # Main container (two-panel layout with prioritized outputs)
+ ├─ hooks/
+ │   └─ useTimestampConverter.ts       # Tool state, options, conversion trigger, and copy actions
+ ├─ components/
+ │   ├─ TimestampInputPanel.tsx        # Timestamp/date input + unit/timezone/auto-detect options
+ │   └─ TimestampOutputPanel.tsx       # Primary/common/advanced/metadata sections with copy actions
+ └─ utils/
+     └─ timestampUtils.ts              # Parsing + formatting utilities for Unix/ISO/RFC and metadata
+```
+
+### Date Converter Tool Structure
+```
+src/tools/date-converter/
+ ├─ index.tsx                          # Main container (two-panel layout with prioritized outputs)
+ ├─ hooks/
+ │   └─ useDateConverter.ts            # Tool state, options, conversion trigger, and copy actions
+ ├─ components/
+ │   ├─ DateInputPanel.tsx             # Date picker/manual input + interpretation/format options
+ │   └─ DateOutputPanel.tsx            # Primary/regional/technical/metadata sections with copy actions
+ └─ utils/
+     └─ dateUtils.ts                   # Date parsing/formatting utilities and metadata helpers
+```
+
+### Days Between Two Dates Tool Structure
+```
+src/tools/days-between/
+ ├─ index.tsx                          # Main container (two-panel layout: inputs left, results right)
+ ├─ hooks/
+ │   └─ useDaysBetween.ts              # Tool state, options, calculate on click, result and breakdown
+ ├─ components/
+ │   ├─ DaysBetweenInputPanel.tsx      # Start/end date inputs, Today shortcuts, options, Calculate/Clear
+ │   ├─ DaysBetweenOutputPanel.tsx      # Primary result, alternative units, calendar/breakdown/explanation accordions
+ │   └─ CalendarVisualization.tsx      # Monthly calendar grid with start/end and range highlight
+ └─ utils/
+     └─ daysBetweenUtils.ts            # Date math: days between, weekdays, alternative units, calendar days
 ```
 
 ### JSON Formatter Main Container (`tools/jsonFormatter/index.tsx`)
