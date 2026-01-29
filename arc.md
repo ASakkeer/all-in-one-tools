@@ -32,6 +32,7 @@ All-in-one tools application built with React, TypeScript, Vite, Tailwind CSS, R
   - `csvToJson` – CSV to JSON conversion with delimiter options, table preview, and export actions.
   - `jsonToCsv` – JSON to CSV conversion with flattening/array handling options, table preview, and export actions.
   - `date-converter` – Date conversion between ISO, regional, technical formats with metadata.
+  - `days-between` – Days calculator between two dates: primary result, alternative units, calendar visualization, and detailed breakdown (weekdays, leap year).
     - `wordCounter` – text statistics (words, characters, sentences, lines, paragraphs).
     - `diffChecker` – text diffing with side-by-side and inline views.
   - `timestamp-converter` – Timestamp to date/time conversion with prioritized primary results and progressive disclosure of advanced formats.
@@ -216,6 +217,20 @@ src/tools/date-converter/
  │   └─ DateOutputPanel.tsx            # Primary/regional/technical/metadata sections with copy actions
  └─ utils/
      └─ dateUtils.ts                   # Date parsing/formatting utilities and metadata helpers
+```
+
+### Days Between Two Dates Tool Structure
+```
+src/tools/days-between/
+ ├─ index.tsx                          # Main container (two-panel layout: inputs left, results right)
+ ├─ hooks/
+ │   └─ useDaysBetween.ts              # Tool state, options, calculate on click, result and breakdown
+ ├─ components/
+ │   ├─ DaysBetweenInputPanel.tsx      # Start/end date inputs, Today shortcuts, options, Calculate/Clear
+ │   ├─ DaysBetweenOutputPanel.tsx      # Primary result, alternative units, calendar/breakdown/explanation accordions
+ │   └─ CalendarVisualization.tsx      # Monthly calendar grid with start/end and range highlight
+ └─ utils/
+     └─ daysBetweenUtils.ts            # Date math: days between, weekdays, alternative units, calendar days
 ```
 
 ### JSON Formatter Main Container (`tools/jsonFormatter/index.tsx`)
