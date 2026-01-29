@@ -188,19 +188,19 @@ const TOOL_CATEGORIES: ToolCategory[] = [
     name: "Date & Time",
     tools: [
       {
-        id: "timestamp-converter",
-        name: "Timestamp Converter",
-        description: "Convert between UNIX timestamps and readable dates.",
-        status: "coming-soon",
-        tags: ["timestamp", "unix", "date"],
-        category: "Date & Time",
-      },
-      {
         id: "date-converter",
         name: "Date Converter",
         description: "Shift, compare, and reformat dates.",
         status: "coming-soon",
         tags: ["date", "format", "timezones"],
+        category: "Date & Time",
+      },
+      {
+        id: "timestamp-converter",
+        name: "Timestamp Converter",
+        description: "Convert between Unix timestamps and readable dates (runs locally).",
+        status: "active",
+        tags: ["timestamp", "unix", "date", "utc"],
         category: "Date & Time",
       },
     ],
